@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CornellPad.Resources.Styles.Typographies">
+
+    <!-- Blank Font Entry
+    <x:String x:Key="_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="_FontSize">14</x:Double>
+    <x:Double x:Key="_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="_FontAttributes">None</FontAttributes>
+    
+    Font attributes are an enumeration and can be one of the following:
+        Bold
+        Italic
+        None
+    -->
+
+    <!--#region AppHeader_DM font definitions -->
+    <x:String x:Key="AppHeader_DM_FontFamily">CrimsonPro_Regular</x:String>
+    <x:Double x:Key="AppHeader_DM_FontSize">24</x:Double>
+    <x:Double x:Key="AppHeader_DM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="AppHeader_DM_FontAttributes">None</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region AppHeader_LM font definitions -->
+    <x:String x:Key="AppHeader_LM_FontFamily">CrimsonPro_600</x:String>
+    <x:Double x:Key="AppHeader_LM_FontSize">24</x:Double>
+    <x:Double x:Key="AppHeader_LM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="AppHeader_LM_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region AppHeader_VI font definitions -->
+    <x:String x:Key="AppHeader_VI_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="AppHeader_VI_FontSize">28</x:Double>
+    <x:Double x:Key="AppHeader_VI_CharacterSpacing">1</x:Double>
+    <FontAttributes x:Key="AppHeader_VI_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region AppText_DM font definitions -->
+    <x:String x:Key="AppText_DM_FontFamily">SourceSansPro_Regular</x:String>
+    <x:Double x:Key="AppText_DM_FontSize">12</x:Double>
+    <x:Double x:Key="AppText_DM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="AppText_DM_FontAttributes">None</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region AppText_LM font definitions -->
+    <x:String x:Key="AppText_LM_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="AppText_LM_FontSize">12</x:Double>
+    <x:Double x:Key="AppText_LM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="AppText_LM_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region AppText_VI font definitions -->
+    <x:String x:Key="AppText_VI_FontFamily">SourceSansPro_Black</x:String>
+    <x:Double x:Key="AppText_VI_FontSize">16</x:Double>
+    <x:Double x:Key="AppText_VI_CharacterSpacing">0.5</x:Double>
+    <FontAttributes x:Key="AppText_VI_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region ButtonText font definitions -->
+    <x:String x:Key="ButtonText_FontFamily">SourceSansPro_Regular</x:String>
+    <x:Double x:Key="ButtonText_FontSize">18</x:Double>
+    <x:Double x:Key="ButtonText_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="ButtonText_FontAttributes">None</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region ButtonText_VI font definitions -->
+    <x:String x:Key="ButtonText_VI_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="ButtonText_VI_FontSize">18</x:Double>
+    <x:Double x:Key="ButtonText_VI_CharacterSpacing">0.75</x:Double>
+    <FontAttributes x:Key="ButtonText_VI_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region CardSubtitleItalic_DM font definitions -->
+    <x:String x:Key="CardSubtitleItalic_DM_FontFamily">CrimsonPro_Italic</x:String>
+    <x:Double x:Key="CardSubtitleItalic_DM_FontSize">16</x:Double>
+    <x:Double x:Key="CardSubtitleItalic_DM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="CardSubtitleItalic_DM_FontAttributes">Italic</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region CardSubtitleItalic_LM font definitions -->
+    <x:String x:Key="CardSubtitleItalic_LM_FontFamily">CrimsonPro_Italic</x:String>
+    <x:Double x:Key="CardSubtitleItalic_LM_FontSize">17</x:Double>
+    <x:Double x:Key="CardSubtitleItalic_LM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="CardSubtitleItalic_LM_FontAttributes">Italic</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region CardSubtitleItalic_VI font definitions -->
+    <x:String x:Key="CardSubtitleItalic_VI_FontFamily">CrimsonPro_Italic</x:String>
+    <x:Double x:Key="CardSubtitleItalic_VI_FontSize">20</x:Double>
+    <x:Double x:Key="CardSubtitleItalic_VI_CharacterSpacing">1</x:Double>
+    <FontAttributes x:Key="CardSubtitleItalic_VI_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region CardText_LM font definitions -->
+    <x:String x:Key="CardText_LM_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="CardText_LM_FontSize">13</x:Double>
+    <x:Double x:Key="CardText_LM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="CardText_LM_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+    
+    <!--#region CardText_DM font definitions -->
+    <x:String x:Key="CardText_DM_FontFamily">SourceSansPro_Regular</x:String>
+    <x:Double x:Key="CardText_DM_FontSize">13</x:Double>
+    <x:Double x:Key="CardText_DM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="CardText_DM_FontAttributes">None</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region CardText_VI font definitions -->
+    <x:String x:Key="CardText_VI_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="CardText_VI_FontSize">15</x:Double>
+    <x:Double x:Key="CardText_VI_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="CardText_VI_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region CardTitle_DM font definitions -->
+    <x:String x:Key="CardTitle_DM_FontFamily">CrimsonPro_Regular</x:String>
+    <x:Double x:Key="CardTitle_DM_FontSize">24</x:Double>
+    <x:Double x:Key="CardTitle_DM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="CardTitle_DM_FontAttributes">None</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region CardTitle_LM font definitions -->
+    <x:String x:Key="CardTitle_LM_FontFamily">CrimsonPro_Regular</x:String>
+    <x:Double x:Key="CardTitle_LM_FontSize">24</x:Double>
+    <x:Double x:Key="CardTitle_LM_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="CardTitle_LM_FontAttributes">None</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region CardTitle_VI font definitions -->
+    <x:String x:Key="CardTitle_VI_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="CardTitle_VI_FontSize">28</x:Double>
+    <x:Double x:Key="CardTitle_VI_CharacterSpacing">1</x:Double>
+    <FontAttributes x:Key="CardTitle_VI_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region ControlTitles font definitions -->
+    <x:String x:Key="ControlTitles_FontFamily">SourceSansPro_Regular</x:String>
+    <x:Double x:Key="ControlTitles_FontSize">14</x:Double>
+    <x:Double x:Key="ControlTitles_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="ControlTitles_FontAttributes">None</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region ControlTitles_VI font definitions -->
+    <x:String x:Key="ControlTitles_VI_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="ControlTitles_VI_FontSize">16</x:Double>
+    <x:Double x:Key="ControlTitles_VI_CharacterSpacing">0.75</x:Double>
+    <FontAttributes x:Key="ControlTitles_VI_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region WarningDialogText font definitions -->
+    <x:String x:Key="WarningDialogText_FontFamily">SourceSansPro_Regular</x:String>
+    <x:Double x:Key="WarningDialogText_FontSize">16</x:Double>
+    <x:Double x:Key="WarningDialogText_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="WarningDialogText_FontAttributes">None</FontAttributes>
+    <!--#endregion-->
+
+    <!--#region WarningDialogText_VI font definitions -->
+    <x:String x:Key="WarningDialogText_VI_FontFamily">SourceSansPro_Bold</x:String>
+    <x:Double x:Key="WarningDialogText_VI_FontSize">16</x:Double>
+    <x:Double x:Key="WarningDialogText_VI_CharacterSpacing">0</x:Double>
+    <FontAttributes x:Key="WarningDialogText_VI_FontAttributes">Bold</FontAttributes>
+    <!--#endregion-->
+
+</ResourceDictionary>

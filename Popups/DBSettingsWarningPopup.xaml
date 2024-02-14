@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:CornellPad.ViewModels.Popups"
+             
+    x:Class="CornellPad.Popups.DBSettingsWarningPopup"
+    x:DataType="viewmodel:DBSettingsWarningViewModel"
+    
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    Color="Transparent">
+
+    <Border Style="{DynamicResource DialogStrokeRectangle}">
+        <VerticalStackLayout
+        HeightRequest="452"
+        WidthRequest="302">
+
+            <Border Style="{DynamicResource DialogHeader}">
+                <Label 
+                Text="{Binding Title}"
+                Style="{DynamicResource DialogHeaderText}"/>
+            </Border>
+
+            <Border Style="{DynamicResource DialogBG}">
+                <Grid
+                RowDefinitions="362, 40">
+                    <Grid
+                    Grid.Row="0"
+                    ColumnDefinitions="64, *"
+                    Margin="12, 12, 12, 12">
+
+                        <Grid
+                            Grid.Column="0"
+                            Margin="0, 0, 12, 0"
+                            HeightRequest="64"
+                            WidthRequest="64">
+                            <Rectangle
+                                Fill="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                HeightRequest="40"
+                                WidthRequest="14"/>
+                            <Image
+                                WidthRequest="64">
+                                <Image.Source>
+                                    <FontImageSource
+                                    FontFamily="FA_Solid"
+                                    Glyph="{StaticResource ExclamationTriangle}"
+                                    Color="Yellow"
+                                    Size="64"/>
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding PopupMessage}"
+                            Style="{DynamicResource WarningPopupTextLabel}"/>
+
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="1"
+                        ColumnDefinitions="40*, Auto, 33*"
+                        WidthRequest="300"
+                        HeightRequest="40">
+                        <HorizontalStackLayout
+                        Grid.Column="0">
+                            
+                            <CheckBox
+                                IsChecked="{Binding DisableDBSettingsWarning}"
+                                Color="{AppThemeBinding Light={StaticResource Primary_600}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                
+                                Margin="0, 0, 0, 0"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"/>
+                            
+                            <Label
+                                Text="Don't warn me again"
+                                
+                                Margin="0, 0, 0, 0"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                            
+                        </HorizontalStackLayout>
+
+                        <Button
+                            Grid.Column="2"
+                            Text="Dismiss"
+                            Style="{DynamicResource CancelButton}"
+                            Clicked="OnDismissButtonClicked"/>
+
+                    </Grid>
+                </Grid>
+            </Border>
+
+        </VerticalStackLayout>
+    </Border>
+
+</toolkit:Popup>

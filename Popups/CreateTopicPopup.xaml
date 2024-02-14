@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:card="clr-namespace:CornellPad.Views.Cards"
+    xmlns:glyphitem="clr-namespace:CornellPad.DataTypes"
+    xmlns:viewmodel="clr-namespace:CornellPad.ViewModels.Popups"
+    xmlns:controls="clr-namespace:MauiDynamicUnderlineControls.Controls;assembly=MauiDynamicUnderlineControls"
+             
+    x:Class="CornellPad.Popups.CreateTopicPopup"
+    x:DataType="viewmodel:CreateTopicViewModel"
+    x:Name="createTopicDialog"
+    
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    Color="Transparent">
+
+    <toolkit:Popup.Resources>
+        <DataTemplate
+            x:Key="GlyphCard"
+            x:DataType="glyphitem:GlyphCollectionItem">
+            <card:GlyphCollectionCard>
+                <card:GlyphCollectionCard.GestureRecognizers>
+                    <TapGestureRecognizer
+                        CommandParameter="{Binding .}"
+                        Command="{Binding GlyphSelectedCommand, Source={RelativeSource AncestorType={x:Type viewmodel:CreateTopicViewModel}}}"/>
+                </card:GlyphCollectionCard.GestureRecognizers>
+            </card:GlyphCollectionCard>
+        </DataTemplate>
+    </toolkit:Popup.Resources>
+
+    <Border Style="{DynamicResource DialogStrokeRectangle}">
+        <VerticalStackLayout
+            WidthRequest="300"
+            HeightRequest="490">
+            <Border
+                Style="{DynamicResource DialogHeader}">
+                <Label 
+                    Text="Create Topic"
+                    Style="{DynamicResource DialogHeaderText}"/>
+            </Border>
+
+            <Border Style="{DynamicResource DialogBG}">
+                <Grid
+                    RowDefinitions="Auto, *">
+                    <VerticalStackLayout
+                        Grid.Row="0">
+                        <controls:UnderlinedEntry
+                            Text="{Binding TopicName}"
+                            Placeholder="Enter a topic title"
+                            WidthRequest="{OnPlatform Android=275, iOS=275, Default=280}"
+                            HorizontalOptions="Center"
+                            VerticalTextAlignment="End"
+                            Margin="0, 6, 0, 0"/>
+
+                        <HorizontalStackLayout
+                            HorizontalOptions="Center"
+                            Margin="0, 4, 0, 0">
+
+                            <Label
+                                Text="Select Glyph Set"
+                                Style="{DynamicResource ControlTitlesText}"/>
+
+                            <Border
+                                Style="{DynamicResource PickerBorder}">
+                                <Picker
+                                    SelectedItem="{Binding SelectedGlyphLibrary}"
+                                    WidthRequest="{OnPlatform Android=140, iOS=140, Default=140}">
+
+                                    <Picker.Behaviors>
+                                        <toolkit:EventToCommandBehavior
+                                            EventName="SelectedIndexChanged"
+                                            Command="{Binding GlyphLibrarySelectedCommand}"/>
+                                    </Picker.Behaviors>
+
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>FA Brands</x:String>
+                                            <x:String>FA Regular</x:String>
+                                            <x:String>FA Solid</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+
+                                </Picker>
+                            </Border>
+
+                        </HorizontalStackLayout>
+
+                        <Border
+                            Style="{DynamicResource GlyphShowcaseCard}">
+                            <Image
+                                Source="{Binding SelectedGlyph, Converter={glyphitem:GlyphCollectionItemConverter}}"
+                                HeightRequest="48"
+                                WidthRequest="48"/>
+                        </Border>
+                        
+                        <Border
+                            Style="{DynamicResource NewTopicCollectionBorder}">
+                            <CollectionView
+                                x:Name="GlyphCollectionView"
+                                SelectionMode="Single"
+                                ItemsSource="{Binding Glyphs}"
+                                HeightRequest="200"
+                                WidthRequest="{OnPlatform Android=275, iOS=275, Default=280}"
+                                ItemsLayout="VerticalGrid, 3"
+                                ItemTemplate="{StaticResource GlyphCard}">
+
+                                <CollectionView.EmptyView>
+                                    <card:CollectionEmptyCard/>
+                                </CollectionView.EmptyView>
+
+                            </CollectionView>
+                        </Border>
+
+                        <controls:UnderlinedSearchBar
+                            x:Name="GlyphSearchBar"
+                            Margin="0, 4, 0, 0"
+                            HeightRequest="33"
+                            WidthRequest="{OnPlatform Android=275, iOS=275, Default=280}"
+                            Padding="0"
+                            FontSize="12"
+                            
+                            Placeholder="Search glyphs by name"
+                            Text="{Binding SearchGlyphLibrary}"
+                            SearchCommand="{Binding PerformGlyphSearchCommand}"
+                            SearchCommandParameter="{Binding Text, Source={x:Reference GlyphSearchBar}}">
+                            
+                            <controls:UnderlinedSearchBar.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="TextChanged"
+                                    Command="{Binding CancelGlyphSearchCommand}"/>
+                            </controls:UnderlinedSearchBar.Behaviors>
+
+                        </controls:UnderlinedSearchBar>
+                        
+                    </VerticalStackLayout>
+
+                    <Grid
+                        Grid.Row="1"
+                        ColumnDefinitions="20*, Auto, 33*"
+                        WidthRequest="300"
+                        HeightRequest="40">
+                        <Button
+                            Grid.Column="0"
+                            Text="OK"
+                            Style="{DynamicResource OKButton}"
+                            Clicked="OnOKButtonClicked"/>
+                        <Button
+                            Grid.Column="2"
+                            Text="Cancel"
+                            Style="{DynamicResource CancelButton}"
+                            Clicked="OnDismissButtonClicked"/>
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+            <!--END DialogBG-->
+            
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

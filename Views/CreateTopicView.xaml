@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:CornellPad"
+             xmlns:viewmodel="clr-namespace:CornellPad.ViewModels.Popups"
+             xmlns:card="clr-namespace:CornellPad.Views.Cards"
+             xmlns:glyphitem="clr-namespace:CornellPad.DataTypes"
+             x:DataType="viewmodel:CreateTopicViewModel"
+             x:Class="CornellPad.Views.CreateTopicView"
+             Title="CreateTopicView"
+             
+             Background="{DynamicResource GradientBG}"
+             
+             NavigationPage.HasBackButton="False"
+             Shell.FlyoutBehavior="Disabled">
+         <!--Shell.FlyoutItemIsVisible="False">-->
+    <!-- v   ^  NOTE: We MUST be sure the user can't navigate back to LibraryView without creating a Topic (this can cause duplicates). -->
+    <!--<Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False"/>
+    </Shell.BackButtonBehavior>-->
+
+    <!--<ContentPage.Resources>
+        <ControlTemplate x:Key="RadioButtonTemplate">
+            <Border Stroke="#F3F2F1"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="#F3F2F1"
+                    HeightRequest="150"
+                    WidthRequest="150"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="Stroke"
+                                            Value="#FF3300" />
+                                    <Setter TargetName="check"
+                                            Property="Opacity"
+                                            Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="#F3F2F1" />
+                                    <Setter Property="Stroke"
+                                            Value="#F3F2F1" />
+                                    <Setter TargetName="check"
+                                            Property="Opacity"
+                                            Value="0" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                <Grid Margin="0"
+                      WidthRequest="150">
+                    <Grid Margin="0,4,4,0"
+                          WidthRequest="18"
+                          HeightRequest="18"
+                          HorizontalOptions="End"
+                          VerticalOptions="Start">
+                        <Ellipse Stroke="Blue"
+                                 Fill="White"
+                                 WidthRequest="16"
+                                 HeightRequest="16"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center" />
+                        <Ellipse x:Name="check"
+                                 Fill="Blue"
+                                 WidthRequest="8"
+                                 HeightRequest="8"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center" />
+                    </Grid>
+                    <ContentPresenter />
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="ControlTemplate"
+                    Value="{StaticResource RadioButtonTemplate}" />
+        </Style>
+    </ContentPage.Resources>-->
+
+    <ContentPage.Resources>
+
+        <DataTemplate
+            x:Key="GlyphCard"
+            x:DataType="glyphitem:GlyphCollectionItem">
+            <card:GlyphCollectionCard>
+                <card:GlyphCollectionCard.GestureRecognizers>
+                    <TapGestureRecognizer
+                        CommandParameter="{Binding .}"
+                        Command="{Binding GlyphSelectedCommand, Source={RelativeSource AncestorType={x:Type viewmodel:CreateTopicViewModel}}}"/>
+                </card:GlyphCollectionCard.GestureRecognizers>
+            </card:GlyphCollectionCard>
+        </DataTemplate>
+        
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <Entry
+            Placeholder="Enter a Topic Name"
+            Text="{Binding TopicName}"/>
+        <ScrollView Margin="20">
+            <VerticalStackLayout
+                x:Name="TopicImageRadioButtons">
+
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
+                    <Label
+                        Text="Select Glyph Library"
+                        Style="{DynamicResource ControlTitlesText}"/>
+                    <Picker
+                        SelectedItem="{Binding SelectedGlyphLibrary}">
+
+                        <Picker.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                EventName="SelectedIndexChanged"
+                                Command="{Binding GlyphLibrarySelectedCommand}"/>
+                        </Picker.Behaviors>
+
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Font Awesome Brands</x:String>
+                                <x:String>Font Awesome Regular</x:String>
+                                <x:String>Font Awesome Solid</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </HorizontalStackLayout>
+
+                <Border
+                    Style="{DynamicResource GlyphShowcaseCard}">
+                    <!--<Image
+                        Source="{Binding SelectedItem, Source={x:Reference GlyphCollectionView}, Converter={glyphitem:GlyphCollectionItemConverter}}"
+                        HeightRequest="48"
+                        WidthRequest="48"/>-->
+                    <Image
+                        Source="{Binding SelectedGlyph, Converter={glyphitem:GlyphCollectionItemConverter}}"
+                        HeightRequest="48"
+                        WidthRequest="48"/>
+                </Border>
+
+                <CollectionView
+                    x:Name="GlyphCollectionView"
+                    SelectionMode="Single"
+                    ItemsSource="{Binding Glyphs}"
+                    HeightRequest="500"
+                    ItemsLayout="VerticalGrid, 4"
+                    ItemTemplate="{StaticResource GlyphCard}">
+                    
+                    <CollectionView.EmptyView>
+                        <card:CollectionEmptyCard/>
+                    </CollectionView.EmptyView>
+
+                    <!--<CollectionView.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="glyphitem:GlyphCollectionItem">
+                            <Border
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Transparent}, Dark={StaticResource Gray900}}"
+                                StrokeThickness="1"
+                                HeightRequest="64"
+                                WidthRequest="64">
+                                
+                                <Image
+                                        Source="{Binding ., Converter={glyphitem:GlyphCollectionItemConverter}}"
+                                        HeightRequest="48"
+                                        WidthRequest="48"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"/>
+
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>-->
+                    
+                </CollectionView>
+                
+            
+            </VerticalStackLayout>
+
+        </ScrollView>
+        <Button
+            Text="Create Topic"
+            Margin="10"
+            Command="{Binding CreateTopicCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

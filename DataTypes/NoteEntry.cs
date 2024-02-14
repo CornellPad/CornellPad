@@ -1,0 +1,63 @@
+﻿/*******************************************************************
+ Copyright 2024 Digital Brain Lice
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ or implied. See the License for the specific language governing
+ permissions and limitations under the License.
+ *******************************************************************/
+
+using SQLiteNetExtensions.Attributes;
+
+namespace CornellPad.DataTypes;
+
+public class NoteEntry
+{
+    [PrimaryKey, AutoIncrement]
+    [Column("ID")]
+    public int Id { get; set; }
+
+    [Column("PageID"), ForeignKey(typeof(NoteModel))]
+    public int PageId { get; set; }
+    
+    string cue;
+    string note;
+
+    /// <summary>
+    /// Create a new empty NoteEntry object.
+    /// </summary>
+    public NoteEntry()
+    {
+        cue = string.Empty;
+        note = string.Empty;
+    }
+
+    public string Cue
+    { 
+        get { return cue; }
+        set
+        { 
+            if (cue == value) return;
+
+            cue = value;
+        }
+    }
+
+    public string Note
+    {
+        get { return note; }
+        set
+        {
+            if (note == value) return;
+
+            note = value;
+        }
+    }
+}

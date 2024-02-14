@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CornellPad.Resources.Styles.Colors">
+
+    <Color x:Key="Primary">#512BD4</Color>
+    <Color x:Key="Secondary">#DFD8F7</Color>
+    <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="White">White</Color>
+    <Color x:Key="Black">Black</Color>
+    <Color x:Key="Red">#850000</Color>
+    <Color x:Key="Gray100">#E1E1E1</Color>
+    <Color x:Key="Gray200">#C8C8C8</Color>
+    <Color x:Key="Gray300">#ACACAC</Color>
+    <Color x:Key="Gray400">#919191</Color>
+    <Color x:Key="Gray500">#6E6E6E</Color>
+    <Color x:Key="Gray600">#404040</Color>
+    <Color x:Key="Gray900">#212121</Color>
+    <Color x:Key="Gray950">#141414</Color>
+
+    <!-- START: PenPot defined colors-->
+    <Color x:Key="Grey_100">#1A1A1A</Color>
+    <Color x:Key="Grey_200">#333333</Color>
+    <Color x:Key="Grey_300">#4D4D4D</Color>
+    <Color x:Key="Grey_400">#666666</Color>
+    <Color x:Key="Grey_500">#808080</Color>
+    <Color x:Key="Grey_600">#999999</Color>
+    <Color x:Key="Grey_700">#B3B3B3</Color>
+    <Color x:Key="Grey_800">#CCCCCC</Color>
+    <Color x:Key="Grey_850">#DEDEDE</Color>
+    <Color x:Key="Grey_900">#E6E6E6</Color>
+    <Color x:Key="Grey_950">#F9FBFF</Color>
+
+    <Color x:Key="Neutral_Dark">#003333</Color>
+    <Color x:Key="NEUTRAL_Full">#1BB3B3</Color>
+    <Color x:Key="Neutral_Light">#D8FFFF</Color>
+
+    <Color x:Key="Primary_100">#F3DEDE</Color>
+    <Color x:Key="Primary_200">#F8A4A4</Color>
+    <Color x:Key="Primary_300">#F56363</Color>
+    <Color x:Key="Primary_400">#C92E2E</Color>
+    <Color x:Key="PRIMARY_500">#B31B1B</Color>
+    <Color x:Key="Primary_600">#910606</Color>
+    <Color x:Key="Primary_700">#730606</Color>
+    <Color x:Key="Primary_800">#590303</Color>
+    <Color x:Key="Primary_900">#3D0909</Color>
+
+    <Color x:Key="Secondary_100">#E3FEC9</Color>
+    <Color x:Key="Secondary_200">#CAF99C</Color>
+    <Color x:Key="Secondary_300">#AAF75C</Color>
+    <Color x:Key="Secondary_400">#84D336</Color>
+    <Color x:Key="SECONDARY_500">#67B31B</Color>
+    <Color x:Key="Secondary_600">#4F910C</Color>
+    <Color x:Key="Secondary_700">#3C7405</Color>
+    <Color x:Key="Secondary_800">#2A5202</Color>
+    <Color x:Key="Secondary_900">#182F00</Color>
+    <Color x:Key="Secondary_700_Trans">#7084d336</Color>
+
+    <Color x:Key="Transparent">#00000000</Color>
+    <Color x:Key="Black_75percent">#AA000000</Color>
+    <Color x:Key="Black_66percent">#97000000</Color>
+    <Color x:Key="Black_50percent">#80000000</Color>
+    <Color x:Key="Black_33percent">#55000000</Color>
+    <Color x:Key="Black_20percent">#33000000</Color>
+    <Color x:Key="Black_10percent">#1A000000</Color>
+    <Color x:Key="White_50percent">#80FFFFFF</Color>
+    <Color x:Key="White_20percent">#33FFFFFF</Color>
+    <Color x:Key="White_10percent">#1AFFFFFF</Color>
+
+    <LinearGradientBrush x:Key="GradientBG" EndPoint="0,1">
+        <GradientStop Color="{AppThemeBinding Light={StaticResource Neutral_Light}, Dark={StaticResource Neutral_Dark},Default={StaticResource Black}}"
+                      Offset="{AppThemeBinding Light='0.0', Dark='-0.25', Default='0.0'}"/>
+        <GradientStop Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black},Default={StaticResource Black}}"
+                      Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="VIGradientBG" EndPoint="0,1">
+        <GradientStop Color="{AppThemeBinding Default={StaticResource Black}}"
+                  Offset="{AppThemeBinding Default='0.0'}"/>
+        <GradientStop Color="{AppThemeBinding Default={StaticResource Black}}"
+                  Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SteppedBG" EndPoint="0,1">
+        <GradientStop Color="{AppThemeBinding Light={StaticResource Secondary_300}, Dark={StaticResource Secondary_900},Default={StaticResource Neutral_Dark}}"
+                      Offset="0.0"/>
+        <GradientStop Color="{AppThemeBinding Light={StaticResource Secondary_300}, Dark={StaticResource Secondary_900},Default={StaticResource Neutral_Dark}}"
+                      Offset="0.4999"/>
+        <GradientStop Color="{AppThemeBinding Light={StaticResource Neutral_Light}, Dark={StaticResource Black},Default={StaticResource White}}"
+                      Offset="0.5"/>
+        <GradientStop Color="{AppThemeBinding Light={StaticResource Neutral_Light}, Dark={StaticResource Black},Default={StaticResource White}}"
+                      Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="VISteppedBG" EndPoint="0,1">
+        <GradientStop Color="{AppThemeBinding Default={StaticResource Neutral_Dark}}"
+                  Offset="0.0"/>
+        <GradientStop Color="{AppThemeBinding Default={StaticResource Neutral_Dark}}"
+                  Offset="0.4999"/>
+        <GradientStop Color="{AppThemeBinding Default={StaticResource White}}"
+                  Offset="0.5"/>
+        <GradientStop Color="{AppThemeBinding Default={StaticResource White}}"
+                  Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="FlyoutBackdropBrush"
+        StartPoint="0,0"
+        EndPoint="1, 1">
+        <GradientStop Color="{AppThemeBinding Light={StaticResource Neutral_Light}, Dark={StaticResource Neutral_Dark},Default={StaticResource White}}" Offset="0.1"/>
+        <GradientStop Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black},Default={StaticResource White}}" Offset="1.0"/>
+    </LinearGradientBrush>
+    
+    <SolidColorBrush x:Key="VIFlyoutBackdropBrush">#FFFFFFFF</SolidColorBrush>
+    <!-- END: PenPot defined colors-->
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
+    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
+    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
+    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
+    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
+    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
+    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
+    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
+    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
+    <Color x:Key="Yellow100Accent">#F7B548</Color>
+    <Color x:Key="Yellow200Accent">#FFD590</Color>
+    <Color x:Key="Yellow300Accent">#FFE5B9</Color>
+    <Color x:Key="Cyan100Accent">#28C2D1</Color>
+    <Color x:Key="Cyan200Accent">#7BDDEF</Color>
+    <Color x:Key="Cyan300Accent">#C3F2F4</Color>
+    <Color x:Key="Blue100Accent">#3E8EED</Color>
+    <Color x:Key="Blue200Accent">#72ACF1</Color>
+    <Color x:Key="Blue300Accent">#A7CBF6</Color>
+
+</ResourceDictionary>

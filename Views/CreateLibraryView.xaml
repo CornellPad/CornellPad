@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CornellPad"
+             xmlns:viewmodel="clr-namespace:CornellPad.ViewModels"
+             xmlns:controls="clr-namespace:MauiDynamicUnderlineControls.Controls;assembly=MauiDynamicUnderlineControls"
+             
+             x:Class="CornellPad.Views.CreateLibraryView"
+             x:DataType="viewmodel:CreateLibraryViewModel"
+             Title="Create New Library"
+             
+             Style="{DynamicResource FlyoutContentPage}">
+
+    <Border
+        Style="{DynamicResource FlyoutControlsBoard}"
+        
+        StrokeShape="RoundRectangle 20, 20, 40, 40"
+        HeightRequest="600"
+        Margin="15, 0, 15, 0">
+        
+        <Grid
+            RowDefinitions="Auto, 80*, 10*, 8*">
+            
+            <controls:UnderlinedEntry
+                Grid.Row="0"
+                Placeholder="(Required) Enter a name for the new library"
+                
+                StrokeShape="RoundRectangle 13, 13, 5, 5"
+                
+                Margin="10, 10, 10, 3"
+                Text="{Binding Name}"/>
+            
+            <controls:UnderlinedEditor
+                Grid.Row="1"
+                Placeholder="(Required) Enter a brief description of this libraries purpose. This field is limited to 250 characters."
+                
+                Margin="10, 3, 10, 0"
+                Text="{Binding Description}"
+                MaxLength="250"/>
+            
+            <HorizontalStackLayout
+                Grid.Row="2">
+                
+                <CheckBox
+                    IsChecked="{Binding MakeLibrarySelected}"
+                    Color="{AppThemeBinding Light={StaticResource Primary_600}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                    
+                    Margin="5, 0, 0, 0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+                
+                <Label
+                    Text="Make this the selected library"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+                
+            </HorizontalStackLayout>
+            
+            <Button
+                Grid.Row="3"
+                Text="Create Library"
+                IsVisible="{Binding IsButtonEnabled}"
+                Command="{Binding CreateLibraryCommand}"
+                Style="{DynamicResource FlyoutViewActionButton}"/>
+        </Grid>
+        
+    </Border>
+    
+</ContentPage>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:CornellPad"
+             xmlns:viewmodel="clr-namespace:CornellPad.ViewModels"
+             xmlns:model="clr-namespace:CornellPad.Models"
+             xmlns:card="clr-namespace:CornellPad.Views.Cards"
+             x:DataType="viewmodel:LibraryViewModel"
+             x:Class="CornellPad.Views.LibraryView"
+             x:Name="LibraryViewPage"
+             
+             Title="{Binding Title}"
+             NavigationPage.HasBackButton="False">
+    
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+    
+    <!-- WINDOWS SWIPEVIEW CRASH
+    /* This appears to be a Known-Issue: https://github.com/dotnet/maui/issues/8870
+     * It appears to be due to the SwipeView control, but only happens on Windows...nice going M$, you don't even support your own platform.
+     *
+     * We might need to define a bindable property here, and set it to true if we are compiling for Windows, and false otherwise.
+     * Then, we can use this to define different controls for Windows and all the other platforms. This would just be the same
+     * XAML code, but for Windows, we remove the <SwipeView> markup and proceed as normal...what a stupid thing to have to do!
+     * 
+     * Another discussion on conditional XAML rendering can be found here: https://github.com/dotnet/maui/discussions/11102
+     * 
+     * Also, look into the <OnPlatform></OnPlatform> tags. These seem to be what we're looking for! :D
+     */
+    -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+            <DataTemplate
+                x:Key="WithDesktop"
+                x:DataType="model:TopicModel">
+                <card:TopicCard>
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem
+                                Text="Delete"
+                                CommandParameter="{Binding .}"
+                                Command="{Binding Source={x:Reference LibraryViewPage}, Path=BindingContext.DeleteTopicCommand}"/>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+                </card:TopicCard>
+            </DataTemplate>
+            
+            <DataTemplate
+                x:Key="WithoutDesktop"
+                x:DataType="model:TopicModel">
+                <SwipeView
+                    IsVisible="{OnPlatform WinUI=False, MacCatalyst=True, Android=True, iOS=True}">
+                    <SwipeView.RightItems>
+                        <SwipeItems>
+                            <SwipeItemView
+                                CommandParameter="{Binding .}"
+                                Command="{Binding DeleteTopicCommand, Source={RelativeSource AncestorType={x:Type viewmodel:LibraryViewModel}}}">
+                                <Frame
+                                    BackgroundColor="IndianRed"
+                                    WidthRequest="100"
+                                    HeightRequest="100"
+                                    VerticalOptions="Center"
+                                    CornerRadius="50"
+                                    Padding="0">
+                                    <Label
+                                        Text="Delete"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+                                </Frame>
+                            </SwipeItemView>
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+                    <card:TopicCard/>
+                </SwipeView>                
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Add"
+            Command="{Binding ShowCreateTopicDialogCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="FA_Solid"
+                    Glyph="{StaticResource PlusCircle}"
+                    Color="{AppThemeBinding Light={StaticResource Primary_600}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                    Size="{OnPlatform Android='32', iOS='30', MacCatalyst='20', WinUI='20'}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Border Style="{DynamicResource ViewBG}">
+        <CollectionView
+            ItemsSource="{Binding TopicEntries}"
+            ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}"
+            SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <card:CollectionEmptyCard/>
+            </CollectionView.EmptyView>
+        
+        </CollectionView>
+    </Border>
+</ContentPage>

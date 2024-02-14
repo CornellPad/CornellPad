@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:MauiDynamicUnderlineControls.Controls;assembly=MauiDynamicUnderlineControls"
+             xmlns:viewmodel="clr-namespace:CornellPad.ViewModels"
+             
+             x:Class="CornellPad.Views.SettingsView"
+             x:DataType="viewmodel:SettingsViewModel"
+             
+             Style="{DynamicResource FlyoutContentPage}"
+             Title="Settings">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="ThemeButtonStrokeColor">#C92E2E</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Border
+        Style="{DynamicResource FlyoutControlsBoard}"
+        Margin="15, 0, 15, 15">
+
+        <ScrollView>
+
+        <VerticalStackLayout
+            Padding="10">
+
+
+            <!-- APP Theme: Force to Light/Dark Mode
+            C#: ?
+            Link: ? 
+            -->
+            <Label 
+                Text="Set UI Mode"
+                Style="{DynamicResource AppHeaderLabel}"
+                
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                Margin="0"/>
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                Margin="10">
+                
+                <Border
+                    HeightRequest="64"
+                    WidthRequest="64"
+                    StrokeShape="RoundRectangle 32"
+                    Margin="5">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop
+                                Color="{StaticResource Gray100}"
+                                Offset="0.2"/>
+                            <GradientStop
+                                Color="{StaticResource Gray950}"
+                                Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ChangeCurrentAppThemeCommand}"
+                            CommandParameter="Auto"/>
+                    </Border.GestureRecognizers>
+
+                    <Border.Triggers>
+                        <DataTrigger
+                            TargetType="Border"
+                            Binding="{Binding IsAutoThemeEnabled}"
+                            Value="True">
+                            <Setter Property="Stroke" Value="{StaticResource ThemeButtonStrokeColor}"/>
+                            <Setter Property="StrokeThickness" Value="2"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+
+                    <Label
+                        Text="Auto"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Padding="10">
+                        
+                        <Label.Triggers>
+                            <DataTrigger
+                                TargetType="Label"
+                                Binding="{Binding IsAutoThemeEnabled}"
+                                Value="True">
+                                <Setter Property="TextColor" Value="{StaticResource ThemeButtonStrokeColor}"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                        
+                    </Label>
+
+                </Border>
+                
+                <Border
+                    HeightRequest="64"
+                    WidthRequest="64"
+                    StrokeShape="RoundRectangle 32"
+                    BackgroundColor="{StaticResource Secondary}"
+                    Margin="5">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ChangeCurrentAppThemeCommand}"
+                            CommandParameter="Light"/>
+                    </Border.GestureRecognizers>
+
+                    <Border.Triggers>
+                        <DataTrigger
+                            TargetType="Border"
+                            Binding="{Binding IsLightThemeEnabled}"
+                            Value="True">
+                            <Setter Property="Stroke" Value="{StaticResource ThemeButtonStrokeColor}"/>
+                            <Setter Property="StrokeThickness" Value="2"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    
+                    <Label
+                        Text="Light"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Padding="10">
+
+                        <Label.Triggers>
+                            <DataTrigger
+                                TargetType="Label"
+                                Binding="{Binding IsLightThemeEnabled}"
+                                Value="True">
+                                <Setter Property="TextColor" Value="{StaticResource ThemeButtonStrokeColor}"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                        
+                    </Label>
+
+                </Border>
+                
+                <Border
+                    HeightRequest="64"
+                    WidthRequest="64"
+                    StrokeShape="RoundRectangle 32"
+                    BackgroundColor="{StaticResource Gray900}">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ChangeCurrentAppThemeCommand}"
+                            CommandParameter="Dark"/>
+                    </Border.GestureRecognizers>
+
+                    <Border.Triggers>
+                        <DataTrigger
+                            TargetType="Border"
+                            Binding="{Binding IsDarkThemeEnabled}"
+                            Value="True">
+                            <Setter Property="Stroke" Value="{StaticResource ThemeButtonStrokeColor}"/>
+                            <Setter Property="StrokeThickness" Value="2"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    
+                    <Label
+                        Text="Dark"
+                        TextColor="{StaticResource Grey_800}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Padding="10">
+
+                        <Label.Triggers>
+                            <DataTrigger
+                                TargetType="Label"
+                                Binding="{Binding IsDarkThemeEnabled}"
+                                Value="True">
+                                <Setter Property="TextColor" Value="{StaticResource ThemeButtonStrokeColor}"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+
+                    </Label>
+
+                </Border>
+                
+                <Border
+                    HeightRequest="64"
+                    WidthRequest="64"
+                    StrokeShape="RoundRectangle 32"
+                    BackgroundColor="White"
+                    Margin="5">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ChangeCurrentAppThemeCommand}"
+                            CommandParameter="VI"/>
+                    </Border.GestureRecognizers>
+
+                    <Border.Triggers>
+                        <DataTrigger
+                            TargetType="Border"
+                            Binding="{Binding IsVIThemeEnabled}"
+                            Value="True">
+                            <Setter Property="Stroke" Value="{StaticResource ThemeButtonStrokeColor}"/>
+                            <Setter Property="StrokeThickness" Value="2"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    
+                    <Label
+                        Text="VI"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Padding="10">
+
+                        <Label.Triggers>
+                            <DataTrigger
+                                TargetType="Label"
+                                Binding="{Binding IsVIThemeEnabled}"
+                                Value="True">
+                                <Setter Property="TextColor" Value="{StaticResource ThemeButtonStrokeColor}"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+
+                    </Label>
+
+                </Border>
+                
+            </HorizontalStackLayout>
+
+
+            <Border
+                Style="{DynamicResource SettingsBorder}">
+
+                <Label
+                    Text="Database Management"
+                    Style="{DynamicResource SettingsDBManagementTitleLabel}"
+                    
+                    HorizontalOptions="Center"/>
+                
+            </Border>
+
+            <VerticalStackLayout>
+
+
+
+                <!-- DATABASE MANAGEMENT: Database Backup
+                We will need to open a File Explorer dialog to allow the
+                user to dictate where the backup should be stored. This
+                will need to be able to access attached storage, like an
+                SD card on a mobile device.
+
+                Doing this requires the CommunityToolkit.Maui FolderPicker,
+                but it is totally possible.
+
+                UPDATE: allowing the user to choose anything on external
+                storage needs a special permission, so we don't want to
+                do that.
+
+                C#: _connection.Backup(string destinationDatabasePath, [string databaseName = "main"]);
+                Link: https://github.com/praeclarum/sqlite-net/blob/master/src/SQLite.cs    (Line:2152)
+                -->
+                <Button
+                    Text="Database Backup"
+                    Style="{DynamicResource FlyoutSettingsButton}"
+                    Command="{Binding BackupDatabaseCommand}">
+
+                    <Button.Triggers>
+                        <Trigger TargetType="Button"
+                                 Property="IsPressed"
+                                 Value="True">
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary_800}"/>
+                        </Trigger>
+                    </Button.Triggers>
+
+                </Button>
+
+                <!-- DATABASE MANAGEMENT: Database Restore
+                We will need to open a File Explorer dialog to allow the
+                user to find the database that they would like to use to
+                restore from. Then, we will need to inform them that this
+                will overwrite the database in the App's normal DB path.
+                THEN, we will need to close the DBMS connection, copy DB,
+                and reopen the DBMS connection, saving it to _connection
+                in the DataService class.
+
+                This requires the .NET MAUI FilePicker, set to a custom
+                file type for "*.db3" files types. We won't be supporting
+                external storage devices (like an SD card), due to the
+                extra permissions required for this.
+
+                C#: ?
+                Link: ?
+                -->
+                <Button
+                    Text="Database Restore"
+                    Style="{DynamicResource FlyoutSettingsButton}"
+                    Command="{Binding RestoreDatabaseCommand}"
+                    Margin="0, 5, 0, 0">
+
+                    <Button.Triggers>
+                        <Trigger TargetType="Button"
+                                 Property="IsPressed"
+                                 Value="True">
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary_800}"/>
+                        </Trigger>
+                    </Button.Triggers>
+
+                </Button>
+
+
+
+                <toolkit:Expander
+                    x:Name="AdvancedDBMgmt"
+                    IsExpanded="{Binding IsAdvancedDBSettingsExpanded}"
+                    Command="{Binding DisplayDBSettingsWarningPopupCommand}">
+                    <toolkit:Expander.Header>
+                        <Border
+                            Margin="4"
+                            Padding="4"
+                            Stroke="{AppThemeBinding Light={StaticResource Primary_600}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                            StrokeShape="RoundRectangle 10"
+                            HeightRequest="40"
+                            BackgroundColor="{StaticResource Transparent}">
+
+                            <HorizontalStackLayout>
+                                <Image
+                                    HeightRequest="20"
+                                    Margin="5, 0, 0, 0">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="FA_Solid"
+                                            Glyph="{StaticResource AngleDoubleRight}"
+                                            Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                            Size="24"/>
+                                    </Image.Source>
+
+                                    <Image.Triggers>
+                                        <DataTrigger
+                                            TargetType="Image"
+                                            Binding="{Binding IsExpanded, Source={x:Reference AdvancedDBMgmt}}"
+                                            Value="True">
+                                            <Setter Property="Rotation" Value="90"/>
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                    
+                                </Image>
+                                <Label
+                                    Text="Advanced Database Management"
+                                    Style="{DynamicResource SettingsExpanderLabel}"/>
+                            </HorizontalStackLayout>
+
+                        </Border>
+                    </toolkit:Expander.Header>
+
+                    <VerticalStackLayout
+                        Margin="4">
+
+                        <Border
+                            Style="{DynamicResource SettingsBorder}">
+                            <VerticalStackLayout>
+                                <!-- DATABASE MANAGEMENT: Cache Size
+                                    We will need to limit the user's input to positive numbers
+                                    only, and then convert that number to a negative value to
+                                    set the cache size via the SQL query (as can be seen below).
+                        
+                                    NOTE: We need to make it clear to the user that this is an
+                                    upper-bounds setting, and will not force the app to allocate
+                                    all of this memory up front. However, this CAN result in the
+                                    app being able to allocate large chunks of memory if set too
+                                    high. This affects the number of pages that can be held in
+                                    the cache: with the default value of 2000*1024 / 4096, the
+                                    result is 500 pages of possible cache for the open SQLite
+                                    connection to use. This will change dramatically with very
+                                    different page sizes: using the same default 2000*1024 cache
+                                    size, a page size of 64kb results in just ~31 pages of cache
+                                    (actually 31.25, but SQLite is probably rounding down here).
+                                    To achieve the same 500 pages, we would need a setting of
+                                    -16000 for our value in the SQL query. But, this would result
+                                    in almost 32MB of memory being used for the cache.
+                        
+                                    C#: _connection.Execute("PRAGMA cache_size = -10000");
+                                    Link: https://www.sqlite.org/pragma.html#pragma_cache_size
+                                    -->
+                                <HorizontalStackLayout
+                                    Margin="5, 5, 0, 5">
+                                    
+                                    <ImageButton
+                                        Style="{DynamicResource SettingsHelpIcon}"
+                                        Command="{Binding DisplayCacheSizePopupCommand}">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="FA_Solid"
+                                                Glyph="{StaticResource QuestionCircle}"
+                                                Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                                Size="16"/>
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    
+                                    <Label
+                                        Text="Cache Size"
+                                        Style="{DynamicResource SettingsLabels}"/>
+
+                                    <controls:UnderlinedEntry
+                                        Placeholder="default is -2000"
+                                        Text="{Binding CacheSize}"
+                                        WidthRequest="140">
+                                        <controls:UnderlinedEntry.Behaviors>
+                                            <toolkit:EventToCommandBehavior
+                                                x:TypeArguments="TextChangedEventArgs"
+                                                EventName="TextChanged"
+                                                Command="{Binding UpdateCacheSizeCommand}"/>
+                                        </controls:UnderlinedEntry.Behaviors>
+                                    </controls:UnderlinedEntry>
+                                    
+                                </HorizontalStackLayout>
+
+                                <!-- DATABASE MANAGEMENT: Setting Page Size
+						            To get any benefit to changing this, the Power-of-Two
+						            value passed in should match the cluster size of The
+						            storage device that is hosting the database. I.e. The
+						            FAT32 cluster size for an 8TB HDD is 32KB, so the page
+						            size should be set to the same value. Allocation Unit Size
+						            and Cluster Size are synonymous, and for smaller drives,
+						            4K clusters are common.
+						
+						            There is no easy way to poll this value when the app
+						            creates the database for the first time. The user will
+						            need to change this value, if they want to gain more
+						            performance/storage savings.
+						
+						            Valid values for this range from 2^9 (512) to 2^16 (65536),
+						            and these values need to be presented to the user in a more
+						            intuitive way (like 512b, 1kb, 2kb, 4kb, 8kb, 16kb, 32kb,
+						            or 64kb). We can do this by dividing each value by 1024, and
+						            using an IList to populate the picker, and an IDictionary
+						            that holds the numerical data keyed to the string values in
+						            the IList. A user selects a value from the Picker, and We
+						            take that string value and use it as the key into our Dict
+						            to obtain the actual numerical value for our SQL query.
+						
+						            NOTE: On an existing database, this value will be stored,
+						            but not used until a VACUUM operation is performed on the
+						            database.
+                                    C#: _connection.Execute("PRAGMA page_size = 4096");
+                                    Link: https://www.sqlite.org/pragma.html#pragma_page_size
+                                    -->
+                                <HorizontalStackLayout
+                                    Margin="5, 0, 0, 5">
+                                    
+                                    <ImageButton
+                                        Style="{DynamicResource SettingsHelpIcon}"
+                                        Command="{Binding DisplayPageSizePopupCommand}">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="FA_Solid"
+                                                Glyph="{StaticResource QuestionCircle}"
+                                                Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                                Size="16"/>
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    
+                                    <Label
+                                        Text="Page Size"
+                                        Style="{DynamicResource SettingsLabels}"/>
+
+                                    <Border
+                                        Style="{DynamicResource PickerBorder}">
+                                        <Picker
+                                            WidthRequest="94"
+                                            SelectedIndex="{Binding PageSizeIndex}">
+
+                                            <Picker.Behaviors>
+                                                <toolkit:EventToCommandBehavior
+                                                    EventName="SelectedIndexChanged"
+                                                    Command="{Binding UpdatePageSizeCommand}"/>
+                                            </Picker.Behaviors>
+                                            
+                                            <Picker.ItemsSource>
+                                                <x:Array Type="{x:Type x:String}">
+                                                    <x:String>0.5Kb</x:String>
+                                                    <x:String>1Kb</x:String>
+                                                    <x:String>2Kb</x:String>
+                                                    <x:String>4Kb</x:String>
+                                                    <x:String>8Kb</x:String>
+                                                    <x:String>16Kb</x:String>
+                                                    <x:String>32Kb</x:String>
+                                                    <x:String>64Kb</x:String>
+                                                </x:Array>
+                                            </Picker.ItemsSource>
+                                        </Picker>
+                                    </Border>
+                                    
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+
+
+
+
+                        <!-- DATABASE MANAGEMENT: Locking Mode
+						In normal mode, the DBMS unlocks the DB file at the conclusion
+						of each read/write operation; in exclusive mode, the DBMS locks
+						the file one the first read/write operation and doesn't unlock
+						it until the connection is closed, or the 'NORMAL' PRAGMA
+						query is sent to the DBMS and a read/write operation is performed.
+						
+						This can prevent other apps from accessing the DB file while in
+						use, and can result in a small performance increase. This would
+						be good on mobile devices, where battery life is an issue.
+						
+						C#: _connection.Execute("PRAGMA locking_mode = NORMAL");
+						-OR-
+						C#: _connection.Execute("PRAGMA locking_mode = EXCLUSIVE");
+						Link: https://www.sqlite.org/pragma.html#pragma_locking_mode
+						-->
+                        <HorizontalStackLayout
+                            HorizontalOptions="Start"
+                            Margin="5, 0, 0, 5">
+
+                            <ImageButton
+                                Style="{DynamicResource SettingsHelpIcon}"
+                                Command="{Binding DisplayLockingModePopupCommand}"
+                                Margin="9, 0, 3, 0">
+                                <ImageButton.Source>
+                                    <FontImageSource
+                                        FontFamily="FA_Solid"
+                                        Glyph="{StaticResource QuestionCircle}"
+                                        Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                        Size="16"/>
+                                </ImageButton.Source>
+                            </ImageButton>
+
+                            <Label
+                                Text="Locking Mode"
+                                Style="{DynamicResource SettingsLabels}"/>
+
+                            <Border
+                                Style="{DynamicResource PickerBorder}">
+                                
+                                <Picker
+                                    WidthRequest="118"
+                                    SelectedIndex="{Binding LockingModeIndex}">
+
+                                    <Picker.Behaviors>
+                                        <toolkit:EventToCommandBehavior
+                                            EventName="SelectedIndexChanged"
+                                            Command="{Binding UpdateLockingModeCommand}"/>
+                                    </Picker.Behaviors>
+                                    
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>Normal</x:String>
+                                            <x:String>Exclusive</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                    
+                                </Picker>
+                                
+                            </Border>
+
+                        </HorizontalStackLayout>
+
+                        <!-- DATABASE MANAGEMENT: Temp Store
+						Determines where temporary tables and indices are stored. by
+						default, these are stored in a temprary file. When 'MEMORY'
+						mode is selected, these will be created as an 'in-memory DB'.
+						
+						This would be useful if the device were mobile, and had more
+						memory that storage space (admittedly rare, but possible).
+						
+						C#: _connection.Execute("PRAGMA temp_store = DEFAULT");
+						-OR-
+						C#: _connection.Execute("PRAGMA temp_store = MEMORY");
+						Link: https://www.sqlite.org/pragma.html#pragma_temp_store
+						Link: https://www.sqlite.org/inmemorydb.html
+						-->
+                        <HorizontalStackLayout
+                            HorizontalOptions="Start"
+                            Margin="5, 0, 0, 5">
+
+                            <ImageButton
+                                Style="{DynamicResource SettingsHelpIcon}"
+                                Command="{Binding DisplayTempStorePopupCommand}"
+                                Margin="9, 0, 3, 0">
+                                <ImageButton.Source>
+                                    <FontImageSource
+                                        FontFamily="FA_Solid"
+                                        Glyph="{StaticResource QuestionCircle}"
+                                        Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                        Size="16"/>
+                                </ImageButton.Source>
+                            </ImageButton>
+
+                            <Label
+                                Text="Temp Store"
+                                Style="{DynamicResource SettingsLabels}"/>
+
+                            <Border
+                                Style="{DynamicResource PickerBorder}">
+                                
+                                <Picker
+                                    WidthRequest="110"
+                                    SelectedIndex="{Binding TempStoreIndex}">
+
+                                    <Picker.Behaviors>
+                                        <toolkit:EventToCommandBehavior
+                                            EventName="SelectedIndexChanged"
+                                            Command="{Binding UpdateTempStoreCommand}"/>
+                                    </Picker.Behaviors>
+                                    
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>Default</x:String>
+                                            <x:String>Memory</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                    
+                                </Picker>
+                                
+                            </Border>
+
+                        </HorizontalStackLayout>
+
+                        <Border
+                            Style="{DynamicResource SettingsBorder}"
+                            Padding="10">
+
+                            <VerticalStackLayout>
+
+                                <!-- DATABASE MANAGEMENT: Auto Vacuum
+                                C#: _connection.Execute("PRAGMA auto_vacuum = NONE");
+                                -OR-
+                                C#: _connection.Execute("PRAGMA auto_vacuum = FULL");
+                                -OR-
+                                C#: _connection.Execute("PRAGMA auto_vacuum = INCREMENTAL");
+                                Link: https://www.sqlite.org/pragma.html#pragma_auto_vacuum
+                                -->
+                                <HorizontalStackLayout
+                                    HorizontalOptions="Center"
+                                    Margin="0, 0, 0, 5">
+
+                                    <ImageButton
+                                        Style="{DynamicResource SettingsHelpIcon}"
+                                        Command="{Binding DisplayAutoVacuumPopupCommand}">
+                                        
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="FA_Solid"
+                                                Glyph="{StaticResource QuestionCircle}"
+                                                Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                                Size="16"/>
+                                        </ImageButton.Source>
+                                        
+                                    </ImageButton>
+
+                                    <Label
+                                        Text="Auto Vacuum"
+                                        Style="{DynamicResource SettingsLabels}"
+                                        Margin="5, 0, 5, 0"/>
+
+                                    <Border
+                                        Style="{DynamicResource PickerBorder}">
+                                        
+                                        <Picker
+                                            WidthRequest="138"
+                                            SelectedIndex="{Binding AutoVacuumIndex}">
+
+                                            <Picker.Behaviors>
+                                                <toolkit:EventToCommandBehavior
+                                                    EventName="SelectedIndexChanged"
+                                                    Command="{Binding UpdateAutoVacuumCommand}"/>
+                                            </Picker.Behaviors>
+                                            
+                                            <Picker.ItemsSource>
+                                                <x:Array Type="{x:Type x:String}">
+                                                    <x:String>None</x:String>
+                                                    <x:String>Full</x:String>
+                                                    <x:String>Incremental</x:String>
+                                                </x:Array>
+                                            </Picker.ItemsSource>
+                                            
+                                        </Picker>
+                                        
+                                    </Border>
+
+                                </HorizontalStackLayout>
+
+                                <!-- DATABASE MANAGEMENT: Vacuum
+                                NOTE: Look further into this to ensure that using VACUUM
+                                can't corrupt an otherwise healthy DB. A web search for
+                                "SQLite can issuing VACUUM cause database corruption?"
+                                would be useful.
+
+                                C#: _connection.Execute("VACUUM");
+                                Link: https://www.sqlite.org/lang_vacuum.html
+                                -->
+                                <HorizontalStackLayout
+                                    HorizontalOptions="Center">
+
+                                    <ImageButton
+                                        Style="{DynamicResource SettingsHelpIcon}"
+                                        Command="{Binding DisplayManualVacuumPopupCommand}">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="FA_Solid"
+                                                Glyph="{StaticResource QuestionCircle}"
+                                                Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                                Size="16"/>
+                                        </ImageButton.Source>
+                                    </ImageButton>
+
+                                    <Button
+                                        Text="Manual Vacuum"
+                                        Style="{DynamicResource FlyoutSettingsButton}"
+                                        Command="{Binding ManualVacuumCommand}"
+                                        WidthRequest="174"
+                                        Margin="5, 0, 0, 0">
+                                        
+                                        <Button.Triggers>
+                                            <Trigger TargetType="Button"
+                                                     Property="IsPressed"
+                                                     Value="True">
+                                                <Setter
+                                                    Property="BackgroundColor"
+                                                    Value="{StaticResource Primary_800}"/>
+                                            </Trigger>
+                                        </Button.Triggers>
+                                        
+                                    </Button>
+
+                                </HorizontalStackLayout>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </VerticalStackLayout>
+
+                </toolkit:Expander>
+                        
+                
+                
+                <toolkit:Expander
+                    x:Name="DBMgmtLinks"
+                    IsExpanded="False">
+                    
+                    <toolkit:Expander.Header>
+                        <Border
+                            Margin="4"
+                            Padding="4"
+                            Stroke="{AppThemeBinding Light={StaticResource Primary_600}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                            StrokeShape="RoundRectangle 10"
+                            HeightRequest="40"
+                            BackgroundColor="{StaticResource Transparent}">
+
+                            <HorizontalStackLayout>
+                                <Image
+                                    HeightRequest="20"
+                                    Margin="5, 0, 0, 0">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="FA_Solid"
+                                            Glyph="{StaticResource AngleDoubleRight}"
+                                            Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                            Size="24"/>
+                                    </Image.Source>
+
+                                    <Image.Triggers>
+                                        <DataTrigger
+                                            TargetType="Image"
+                                            Binding="{Binding IsExpanded, Source={x:Reference DBMgmtLinks}}"
+                                            Value="True">
+                                            <Setter Property="Rotation" Value="90"/>
+                                        </DataTrigger>
+                                    </Image.Triggers>
+
+                                </Image>
+                                <Label
+                                    Text="Database Management Links"
+                                    Style="{DynamicResource SettingsExpanderLabel}"/>
+                            </HorizontalStackLayout>
+
+                        </Border>
+                    </toolkit:Expander.Header>
+
+                    <VerticalStackLayout
+                        Margin="4">
+
+                        <Label
+                            Text="CACHE SIZE:&#x0a;&#9;https://www.sqlite.org/pragma.html#pragma_cache_size"
+                            Margin="0, 0, 0, 0"/>
+
+                        <Label
+                            Text="PAGE SIZE:&#x0a;&#9;https://www.sqlite.org/pragma.html#pragma_page_size"
+                            Margin="0, 20, 0, 0"/>
+
+                        <Label
+                            Text="LOCKING MODE:&#x0a;&#9;https://www.sqlite.org/pragma.html#pragma_locking_mode"
+                            Margin="0, 20, 0, 0"/>
+
+                        <Label
+                            Text="More information on file locking:&#x0a;&#9;https://www.sqlite.org/lockingv3.html"
+                            Margin="0, 20, 0, 0"/>
+
+                        <Label
+                            Text="TEMP STORE:&#x0a;&#9;https://www.sqlite.org/pragma.html#pragma_temp_store"
+                            Margin="0, 20, 0, 0"/>
+
+                        <Label
+                            Text="AUTO VACUUM:&#x0a;&#9;https://www.sqlite.org/pragma.html#pragma_auto_vacuum"
+                            Margin="0, 20, 0, 0"/>
+
+                        <Label
+                            Text="VACUUM:&#x0a;&#9;https://www.sqlite.org/lang_vacuum.html"
+                            Margin="0, 20, 0, 0"/>
+
+                    </VerticalStackLayout>
+
+                </toolkit:Expander>
+
+            </VerticalStackLayout>
+
+            <!-- ###: ***
+            C#:
+            Link: 
+            -->
+
+        </VerticalStackLayout>
+
+        </ScrollView>
+    </Border>
+</ContentPage>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 301.09583 301.09583"
+   height="1138"
+   width="1138"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title13">CornellPad Splash Screen Logo</title>
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>CornellPad Splash Screen Logo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.160052;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:377.952;stroke-opacity:1;-inkscape-stroke:none;paint-order:stroke fill markers;stop-color:#000000;stop-opacity:1"
+     id="path3"
+     d="M 301.09583,150.54791 A 150.54791,150.54791 0 0 1 150.54848,301.09583 150.54791,150.54791 0 0 1 0,150.54905 150.54791,150.54791 0 0 1 150.54621,0 150.54791,150.54791 0 0 1 301.09583,150.54564 l -150.54792,0.002 z" />
+  <g
+     id="g2"
+     style="display:inline"
+     transform="matrix(0.77947647,0,0,0.77947647,-44.963057,21.906921)">
+    <path
+       d="M 224.89583,26.548767 C 151.88332,26.548745 104.86541,85.73748 104.86543,158.75 c -1e-5,73.01251 47.01789,132.20125 120.0304,132.20123 33.81231,10e-6 61.83426,-12.57017 82.04305,-33.45222 -16.17263,-15.02372 -20.96246,-19.62708 -36.22776,-35.21491 -12.93424,13.65789 -32.18492,16.39423 -45.81529,15.74271 -43.7832,-1e-4 -67.10587,-35.49362 -67.10598,-79.27681 1e-4,-43.7832 23.32278,-79.276711 67.10598,-79.276816 19.87164,-1.115125 44.65104,8.478929 51.64491,29.533596 C 291.06693,97.642357 308.7797,91.098118 327.20535,90.288028 309.47152,46.952351 269.71765,26.212107 224.89583,26.548767 Z"
+       style="display:inline;fill:#b31b1b;stroke-width:0.180938;stroke-linecap:square;stroke-linejoin:bevel;stroke-dashoffset:99.9999;paint-order:stroke fill markers"
+       id="path1" />
+    <path
+       id="path2"
+       style="display:inline;fill:#67b31b;stroke-width:0.209452;stroke-linecap:square;stroke-linejoin:bevel;stroke-dashoffset:99.9999;paint-order:stroke fill markers"
+       d="m 329.09826,100.11792 a 68.500949,68.500949 0 0 0 -48.67197,19.48873 68.500949,68.500949 0 0 0 -20.55017,47.25862 l -15.33446,-15.8254 c -0.83918,-0.86605 -2.28229,-0.81919 -3.23598,0.10491 l -11.35021,10.99778 c -0.95369,0.92409 -1.04588,2.36527 -0.20671,3.23132 l 58.72975,60.61077 c 0.11785,0.12163 0.24944,0.22073 0.38809,0.30644 l 74.6032,76.39121 c 0.86462,0.88532 2.27365,0.90127 3.15898,0.0367 l 11.51144,-11.24221 c 0.88532,-0.86462 0.90238,-2.27365 0.0377,-3.15898 L 328.0053,236.94264 a 68.500949,68.500949 0 0 0 48.14331,-19.32078 68.500949,68.500949 0 0 0 1.14619,-96.86799 68.500949,68.500949 0 0 0 -48.19654,-20.63595 z m -0.24288,20.51606 a 47.983758,47.983758 0 0 1 33.76073,14.45441 47.983758,47.983758 0 0 1 -0.80306,67.85478 47.983758,47.983758 0 0 1 -67.33232,-0.36484 l -0.9834,-1.01492 a 47.983758,47.983758 0 0 1 1.26452,-67.27807 47.983758,47.983758 0 0 1 34.09353,-13.65136 z" />
+  </g>
+</svg>

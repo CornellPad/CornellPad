@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<Shell
+    x:Class="CornellPad.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:CornellPad.Views">
+
+    <Shell.TitleView>
+        <!-- Label's Text Property Info
+        The current page's title property is being retrieved in the code-behind.
+        That value is then used to set this label's Text property.
+        -->
+        <Label
+            x:Name="ShellTitleLabel"
+            Style="{DynamicResource AppHeaderLabel}"/>
+    </Shell.TitleView>
+
+    <Shell.FlyoutHeader>
+        <Border
+            Style="{DynamicResource FlyoutHeaderBGBorder}">
+            <Border
+                Style="{DynamicResource FlyoutHeaderLogoBorder}">
+                <Image Source="cp_logo.png" />
+            </Border>
+        </Border>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <Grid
+            ColumnDefinitions="Auto, 40, 40, 40"
+            RowDefinitions="60"
+            HeightRequest="60">
+
+            <Label
+                Grid.Column="0"
+                Text="CornellPad"
+                Style="{DynamicResource FlyoutFooterLabel}"/>
+
+            <ImageButton
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                HeightRequest="24"
+                WidthRequest="24">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="FA_Brands"
+                                     Glyph="{StaticResource Github}"
+                                     Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                     Size="24"/>
+                </ImageButton.Source>
+            </ImageButton>
+
+            <ImageButton
+                Grid.Column="2"
+                BackgroundColor="Transparent"
+                HeightRequest="24"
+                WidthRequest="24">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="FA_Brands"
+                                     Glyph="{StaticResource TwitterSquare}"
+                                     Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                     Size="24"/>
+                </ImageButton.Source>
+            </ImageButton>
+
+            <ImageButton
+                Grid.Column="3"
+                BackgroundColor="Transparent"
+                HeightRequest="24"
+                WidthRequest="24">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="FA_Brands"
+                                     Glyph="{StaticResource Linkedin}"
+                                     Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                                     Size="24"/>
+                </ImageButton.Source>
+            </ImageButton>
+
+        </Grid>
+    </Shell.FlyoutFooter>
+
+    <ShellContent
+        Title="Library"
+        ContentTemplate="{DataTemplate local:LibraryView}"
+        Route="LibraryView">
+        <ShellContent.FlyoutIcon>
+            <FontImageSource FontFamily="FA_Solid"
+                             Glyph="{StaticResource Home}"
+                             Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                             Size="24"/>
+        </ShellContent.FlyoutIcon>
+    </ShellContent>
+
+    <FlyoutItem Title="Select Library">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource FontFamily="FA_Regular"
+                             Glyph="{StaticResource CheckSquare}"
+                             Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                             Size="24"/>
+        </FlyoutItem.FlyoutIcon>
+        <ShellContent
+            ContentTemplate="{DataTemplate local:SelectLibraryView}"
+            Route="SelectLibraryView"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Create Library">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource FontFamily="FA_Regular"
+                             Glyph="{StaticResource PlusSquare}"
+                             Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                             Size="24"/>
+        </FlyoutItem.FlyoutIcon>
+        <ShellContent
+            ContentTemplate="{DataTemplate local:CreateLibraryView}"
+            Route="CreateLibraryView"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Delete Library">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource FontFamily="FA_Regular"
+                             Glyph="{StaticResource MinusSquare}"
+                             Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                             Size="24"/>
+        </FlyoutItem.FlyoutIcon>
+        <ShellContent
+            ContentTemplate="{DataTemplate local:DeleteLibraryView}"
+            Route="DeleteLibraryView"/>
+    </FlyoutItem>
+
+
+    <ShellContent
+        Title="Settings"
+        ContentTemplate="{DataTemplate local:SettingsView}"
+        Route="SettingsView">
+        <ShellContent.FlyoutIcon>
+            <FontImageSource FontFamily="FA_Solid"
+                             Glyph="{StaticResource Cog}"
+                             Color="{AppThemeBinding Light={StaticResource PRIMARY_500}, Dark={StaticResource PRIMARY_500},Default={StaticResource Primary_400}}"
+                             Size="24"/>
+        </ShellContent.FlyoutIcon>
+    </ShellContent>
+    
+</Shell>

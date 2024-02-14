@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+    Copyright 2024 Digital Brain Lice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:CornellPad.ViewModels"
+             xmlns:model="clr-namespace:CornellPad.Models"
+             xmlns:header="clr-namespace:CornellPad.Views.Headers"
+             xmlns:card="clr-namespace:CornellPad.Views.Cards"
+             x:Class="CornellPad.Views.DeleteLibraryView"
+             x:DataType="viewmodel:DeleteLibraryViewModel"
+             
+             Style="{DynamicResource FlyoutContentPage}"
+             Title="Library Deletion">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding PageAppearingCommand}"/>
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate
+                x:Key="LibraryCard"
+                x:DataType="model:LibraryModel">
+                <card:LibraryCard
+                    Margin="10, 10, 10, 0">
+                    <card:LibraryCard.GestureRecognizers>
+                        <TapGestureRecognizer
+                            CommandParameter="{Binding .}"
+                            Command="{Binding SetSelectedLibraryCommand, Source={RelativeSource AncestorType={x:Type viewmodel:DeleteLibraryViewModel}}}"/>
+                    </card:LibraryCard.GestureRecognizers>
+                </card:LibraryCard>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    
+    
+    <Grid
+        RowDefinitions="15*, 70*">
+
+        <header:LibraryHeader
+            Grid.Row="0"
+            HeaderTitle="{Binding SelectedLibraryModel.Name}"
+            HeaderDescription="{Binding SelectedLibraryModel.Description}"/>
+
+        <Border
+            Grid.Row="1"
+            Style="{DynamicResource FlyoutControlsBoard}"
+            
+            Margin="15, 0, 15, 15">
+
+            <Grid
+                RowDefinitions="70*, 6*"
+                Margin="0">
+
+                <CollectionView
+                    Grid.Row="0"
+                    ItemsSource="{Binding Libraries}"
+                    ItemTemplate="{StaticResource LibraryCard}">
+
+                    <CollectionView.EmptyView>
+                        <card:CollectionEmptyCard/>
+                    </CollectionView.EmptyView>
+
+                </CollectionView>
+
+                <Border
+                    Grid.Row="1"
+                    BackgroundColor="Transparent"
+                    HeightRequest="45"
+                    StrokeShape="RoundRectangle 7, 8, 40, 40"
+                    StrokeThickness="0"
+                    VerticalOptions="End">
+                    
+                    <Button
+                        Text="{Binding DeleteLibraryButtonText}"
+                        IsVisible="{Binding IsLibraryModelSelected}"
+                        Command="{Binding DeleteSelectedLibraryCommand}"
+                        Style="{DynamicResource FlyoutViewActionButton}"/>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+    
+</ContentPage>
