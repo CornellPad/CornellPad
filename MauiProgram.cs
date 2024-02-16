@@ -18,6 +18,7 @@ using CommunityToolkit.Maui;
 using CornellPad.Popups;
 using CornellPad.Services;
 using CornellPad.Services.Interfaces;
+using MetroLog.MicrosoftExtensions;
 using Microsoft.Extensions.Logging;
 
 namespace CornellPad;
@@ -46,10 +47,25 @@ public static class MauiProgram
                 fonts.AddFont("SourceSans3-Bold.ttf", "SourceSansPro_Bold");
                 fonts.AddFont("SourceSans3-Regular.ttf", "SourceSansPro_Regular");
             });
-
+        /////////////////////////////////////
+        // Debugging Service Registrations
+        /////////////////////////////////////
 #if DEBUG
-		builder.Logging.AddDebug();
+        // For DEBUG, we'll just use the MAUI default...
+        builder.Logging.AddDebug();
+#elif !DEBUG
+        // ...but for release, we'll use MetroLog.
+        builder.Logging
+            .SetMinimumLevel(LogLevel.Warning)
+            .AddStreamingFileLogger(options =>
+            {
+                options.RetainDays = 2;
+                options.FolderPath = Path.Combine(
+                    FileSystem.CacheDirectory,
+                    "CornellPadLogs");
+            });
 #endif
+
         /////////////////////////////////////
         // Dependency Service Registrations
         /////////////////////////////////////
