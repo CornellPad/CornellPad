@@ -15,6 +15,8 @@
  *******************************************************************/
 
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 using SQLiteNetExtensions.Extensions;
 using System.Linq.Expressions;
 
@@ -23,9 +25,12 @@ namespace CornellPad.Services;
 public class SQLiteDataService : IDataService
 {
     SQLiteConnection _connection;
+    private readonly ILogger<SQLiteDataService> _logger;
 
-    public SQLiteDataService()
+    public SQLiteDataService(ILogger<SQLiteDataService> logger)
     {
+        _logger = logger;
+
         if (_connection is null)
             Init();
     }
@@ -106,7 +111,7 @@ public class SQLiteDataService : IDataService
 #if DEBUG
             Debug.WriteLine(inserted == 1 ? "Success" : "Failure", "'System.ArgumentOutOfRangeException' handled. The SettingsModel was created");
 #endif
-            #endregion
+#endregion
         }
 
         // We must have at least one library, so the user can immediately start using the app.
@@ -132,7 +137,7 @@ public class SQLiteDataService : IDataService
 #if DEBUG
             Debug.WriteLine((inserted == 1 && updated == 1) ? "Success" : "Failure", "'System.ArgumentOutOfRangeException' handled. 'default' library was created and setting were updated");
 #endif
-            #endregion
+#endregion
         }
     }
 
@@ -203,6 +208,8 @@ public class SQLiteDataService : IDataService
         {
 #if DEBUG
             Debug.WriteLine(e.Message);
+#elif !DEBUG
+            _logger.LogError("Set PRAGMA cache_size Exception Message: {message}\n    Stack Trace: {trace}", e.Message, e.StackTrace);
 #endif
         }
     }
@@ -229,6 +236,8 @@ public class SQLiteDataService : IDataService
         {
 #if DEBUG
             Debug.WriteLine(e.Message);
+#elif !DEBUG
+            _logger.LogError("Set PRAGMA page_size Exception Message: {message}\n    Stack Trace: {trace}", e.Message, e.StackTrace);
 #endif
         }
     }
@@ -257,6 +266,8 @@ public class SQLiteDataService : IDataService
         {
 #if DEBUG
             Debug.WriteLine(e.Message);
+#elif !DEBUG
+            _logger.LogError("Set PRAGMA locking_mode Exception Message: {message}\n    Stack Trace: {trace}", e.Message, e.StackTrace);
 #endif
         }
     }
@@ -283,6 +294,8 @@ public class SQLiteDataService : IDataService
         {
 #if DEBUG
             Debug.WriteLine(e.Message);
+#elif !DEBUG
+            _logger.LogError("Set PRAGMA temp_store Exception Message: {message}\n    Stack Trace: {trace}", e.Message, e.StackTrace);
 #endif
         }
     }
@@ -306,6 +319,8 @@ public class SQLiteDataService : IDataService
         {
 #if DEBUG
             Debug.WriteLine(e.Message);
+#elif !DEBUG
+            _logger.LogError("Set PRAGMA auto_vacuum Exception Message: {message}\n    Stack Trace: {trace}", e.Message, e.StackTrace);
 #endif
         }
     }
