@@ -53,8 +53,8 @@ public static class MauiProgram
 #if DEBUG
         // For DEBUG, we'll just use the MAUI default...
         builder.Logging.AddDebug();
-#elif !DEBUG
-        // ...but for release, we'll use MetroLog.
+#endif
+        // ...but we'll include MetroLog no matter what.
         builder.Logging
             .SetMinimumLevel(LogLevel.Warning)
             .AddStreamingFileLogger(options =>
@@ -64,7 +64,7 @@ public static class MauiProgram
                     FileSystem.CacheDirectory,
                     "CornellPadLogs");
             });
-#endif
+
 
         /////////////////////////////////////
         // Dependency Service Registrations
