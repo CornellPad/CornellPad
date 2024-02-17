@@ -29,7 +29,18 @@ public class SQLiteDataService : IDataService
 
     public SQLiteDataService(ILogger<SQLiteDataService> logger)
     {
-        _logger = logger;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in NoteViewModel constructor: ILogger<NoteViewModel>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
 
         if (_connection is null)
             Init();
