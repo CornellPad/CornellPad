@@ -16,6 +16,8 @@
 
 using CommunityToolkit.Maui.Core;
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad.ViewModels;
 
@@ -26,6 +28,7 @@ public partial class DeleteLibraryViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     private IDataService _dataService;
     private IPopupService _popupService;
+    private readonly ILogger<DeleteLibraryViewModel> _logger;
 
     //public ObservableCollection<LibraryModel> Libraries { get; set; }
 
@@ -44,10 +47,54 @@ public partial class DeleteLibraryViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
-    public DeleteLibraryViewModel(IDataService dataService, IPopupService popupService)
+    public DeleteLibraryViewModel(IDataService dataService, IPopupService popupService, ILogger<DeleteLibraryViewModel> logger)
     {
-        _dataService = dataService;
-        _popupService = popupService;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in DeleteLibraryViewModel constructor: ILogger<DeleteLibraryViewModel>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (dataService != null)
+            _dataService = dataService;
+        else
+        {
+            #region debug_dataservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in DeleteLibraryViewModel constructor: IDataService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in DeleteLibraryViewModel constructor: IDataService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(dataService));
+        }
+
+        if (popupService != null)
+            _popupService = popupService;
+        else
+        {
+            #region debug_popupservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in DeleteLibraryViewModel constructor: IPopupService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in DeleteLibraryViewModel constructor: IPopupService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(popupService));
+        }
 
         SelectedLibraryModel = _dataService.ReadLibraries().Where(lib => lib.Id == _dataService.ReadSettings().CurrentLibraryId).ToList()[0];
 

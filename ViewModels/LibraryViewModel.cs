@@ -16,6 +16,8 @@
 
 using CommunityToolkit.Maui.Core;
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad.ViewModels;
 
@@ -29,6 +31,7 @@ public partial class LibraryViewModel : BaseViewModel, IQueryAttributable
     private readonly IDataService _dataService;
 
     private readonly IPopupService _popupService;
+    private readonly ILogger<LibraryViewModel> _logger;
 
     /// <summary>
     /// 'Back Button' navs result in duplicate TopicModel creates without this bool.
@@ -41,8 +44,21 @@ public partial class LibraryViewModel : BaseViewModel, IQueryAttributable
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
-    public LibraryViewModel(IDataService dataService, IPopupService popupService)
+    public LibraryViewModel(IDataService dataService, IPopupService popupService, ILogger<LibraryViewModel> logger)
     {
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in NoteViewModel constructor: ILogger<NoteViewModel>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
         if (dataService != null)
             _dataService = dataService;
         else
@@ -50,6 +66,8 @@ public partial class LibraryViewModel : BaseViewModel, IQueryAttributable
             #region debug_dataservice
 #if DEBUG
             Debug.WriteLine("Null exception in LibraryViewModel constructor: IDataService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in LibraryViewModel constructor: IDataService. Cannot continue.");
 #endif
             #endregion
 
@@ -63,6 +81,8 @@ public partial class LibraryViewModel : BaseViewModel, IQueryAttributable
             #region debug_popupservice
 #if DEBUG
             Debug.WriteLine("Null exception in LibraryViewModel constructor: IPopupService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in LibraryViewModel constructor: IPopupService. Cannot continue.");
 #endif
             #endregion
 

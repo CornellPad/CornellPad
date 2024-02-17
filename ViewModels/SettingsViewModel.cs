@@ -17,6 +17,8 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Storage;
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad.ViewModels;
 
@@ -27,6 +29,7 @@ public partial class SettingsViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     private IDataService _dataService;
     private IPopupService _popupService;
+    private readonly ILogger<SettingsViewModel> _logger;
 
     [ObservableProperty]
     bool isAdvancedDBSettingsExpanded;
@@ -61,11 +64,55 @@ public partial class SettingsViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
-    
-    public SettingsViewModel(IDataService dataService, IPopupService popupService)
+
+    public SettingsViewModel(IDataService dataService, IPopupService popupService, ILogger<SettingsViewModel> logger)
     {
-        _dataService = dataService;
-        _popupService = popupService;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in SettingsViewModel constructor: ILogger<SettingsViewModel>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (dataService != null)
+            _dataService = dataService;
+        else
+        {
+            #region debug_dataservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in SettingsViewModel constructor: IDataService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in SettingsViewModel constructor: IDataService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(dataService));
+        }
+
+        if (popupService != null)
+            _popupService = popupService;
+        else
+        {
+            #region debug_popupservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in SettingsViewModel constructor: IPopupService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in SettingsViewModel constructor: IPopupService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(popupService));
+        }
 
         // These shouldn't be -1 if set correctly from the DBMS.
         PageSizeIndex = -1;

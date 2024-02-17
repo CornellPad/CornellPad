@@ -15,6 +15,8 @@
  *******************************************************************/
 
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad.ViewModels;
 
@@ -24,6 +26,7 @@ public partial class SelectLibraryViewModel : BaseViewModel
     // Members & Member Mutators
     /////////////////////////////////////////////////////////////////////////////////
     private IDataService _dataService;
+    private readonly ILogger<SelectLibraryViewModel> _logger;
 
     public ObservableCollection<LibraryModel> Libraries { get; set; }
 
@@ -39,9 +42,39 @@ public partial class SelectLibraryViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
-    public SelectLibraryViewModel(IDataService dataService, LibraryViewModel libraryViewModel)
+    public SelectLibraryViewModel(IDataService dataService, LibraryViewModel libraryViewModel, ILogger<SelectLibraryViewModel> logger)
     {
-        _dataService = dataService;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+
+#if DEBUG
+            Debug.WriteLine("Null exception in SelectLibraryViewModel constructor: ILogger<SelectLibraryViewModel>");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (dataService != null)
+            _dataService = dataService;
+        else
+        {
+            #region debug_dataservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in SelectLibraryViewModel constructor: IDataService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in SelectLibraryViewModel constructor: IDataService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(dataService));
+        }
 
         SelectedLibraryModel = _dataService.ReadLibraries().Where(lib => lib.Id == _dataService.ReadSettings().CurrentLibraryId).ToList()[0];
 
