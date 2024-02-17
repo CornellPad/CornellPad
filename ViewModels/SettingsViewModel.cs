@@ -331,6 +331,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region BackupDB_Exception
 #if DEBUG
                 Debug.WriteLine(ex.Message);
+#elif !DEBUG
+                _logger.LogError("Exception calling _dataService.BackupDB in BackupDatabase method: {message}\n    Stack Trace: {trace}", ex.Message, ex.StackTrace);
 #endif
                 #endregion
 
@@ -343,11 +345,11 @@ public partial class SettingsViewModel : BaseViewModel
             #region FolderPickerResult_Exception
 #if DEBUG
             Debug.WriteLine(result.Exception.Message);
+#elif !DEBUG
+            _logger.LogError("Exception calling FolderPicker.PickAsync in BackupDatabase method: {message}\n    Stack Trace: {trace}", result.Exception.Message, result.Exception.StackTrace);
 #endif
             #endregion
 
-            Console.WriteLine(result.Exception.Message);
-            //Logger.Error(result.Exception.Message, result.Exception.StackTrace); // We NEED loggin in the app...this is stupid!
             await _popupService.ShowPopupAsync<ErrorWarningViewModel>(onPresenting: vm =>
             {
                 vm.Title = "Error: Invalid Choice";
@@ -389,6 +391,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region UnauthorizedAccessException_Debug
 #if DEBUG
                 Debug.WriteLine(uae.Message);
+#elif !DEBUG
+                _logger.LogWarning("Unauthorized Access exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", uae.Message, uae.StackTrace);
 #endif
                 #endregion
             }
@@ -397,6 +401,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region PathTooLongException_Debug
 #if DEBUG
                 Debug.WriteLine(ptle.Message);
+#elif !DEBUG
+                _logger.LogWarning("Path Too Long exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", ptle.Message, ptle.StackTrace);
 #endif
                 #endregion
             }
@@ -405,6 +411,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region DirectoryNotFoundException_Debug
 #if DEBUG
                 Debug.WriteLine(dnfe.Message);
+#elif !DEBUG
+                _logger.LogWarning("Directory Not Found exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", dnfe.Message, dnfe.StackTrace);
 #endif
                 #endregion
             }
@@ -413,6 +421,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region FileNotFoundException_Debug
 #if DEBUG
                 Debug.WriteLine(fnfe.Message);
+#elif !DEBUG
+                _logger.LogWarning("File Not Found exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", fnfe.Message, fnfe.StackTrace);
 #endif
                 #endregion
             }
@@ -421,12 +431,14 @@ public partial class SettingsViewModel : BaseViewModel
                 #region IOException_Debug
 #if DEBUG
                 Debug.WriteLine(ioe.Message);
+#elif !DEBUG
+                _logger.LogWarning("IO exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", ioe.Message, ioe.StackTrace);
 #endif
                 #endregion
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: We need to inform the user that something unexpected has happened, and they should create a bug report with steps on how to reproduce this error.
+                _logger.LogWarning("Exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", ex.Message, ex.StackTrace);
             }
 
             _dataService.OpenConnection();
