@@ -101,14 +101,14 @@ public partial class LibraryViewModel : BaseViewModel, IQueryAttributable
 
             if (libraryList is null)
             {
-                Console.WriteLine("Error: libraryList is null. Can't continue.");
+                _logger.LogCritical("Null exception in LibraryViewModel constructor: {var}", nameof(libraryList));
                 return;
             }
 
             if (libraryList.Count > 1)
             {
                 // We have more than one library, but neither matches the settings 'currentLibraryId'.
-                Console.WriteLine("Warning: No found libraries ID values match ID for currently selected library. Setting current library to first found libraries ID value.");
+                _logger.LogWarning("No found library ID values match ID for currently selected library. Setting current library to first found libraries ID value.");
             }
 
 
