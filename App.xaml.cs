@@ -15,11 +15,12 @@
  *******************************************************************/
 
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad;
 
 // TODO: A 'print-to-PDF' feature would be a huge boon to users; QuestPDF is a great choice here.
-// TODO: Adding logging, even in release, is a necessity. We can't ask the user to provide technical crash information.
 
 /// <summary>
 /// Enumerates the four valid theme settings for CornellPad.
@@ -55,14 +56,45 @@ public enum CornellPadTheme
 public partial class App : Application
 {
     private readonly IDataService _dataService;
+    private readonly ILogger<App> _logger;
+
     private ResourceDictionary _styleThemeDictionary;
+
     private CornellPadTheme _currentTheme;
 
-    public App(IDataService dataService)
+    public App(IDataService dataService, ILogger<App> logger)
     {
         InitializeComponent();
 
-        _dataService = dataService;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in App constructor: ILogger<App>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (dataService != null)
+            _dataService = dataService;
+        else
+        {
+            #region debug_dataservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in App constructor: IDataService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in App constructor: IDataService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(dataService));
+        }
 
         // New mapper for the Entry control
         Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
