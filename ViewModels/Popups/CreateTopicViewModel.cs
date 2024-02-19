@@ -17,6 +17,8 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using CornellPad.Popups;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad.ViewModels.Popups;
 
@@ -25,8 +27,10 @@ public partial class CreateTopicViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     // Members & Member Mutators
     /////////////////////////////////////////////////////////////////////////////////
-    ResourceDictionary _glyphResourceDict;
     private IPopupService _popupService;
+    private readonly ILogger<CreateTopicViewModel> _logger;
+
+    ResourceDictionary _glyphResourceDict;
 
     // prevent a repopulate of the glyph collection, if no search occurred.
     bool _isSearchingGlyphLibrary;
@@ -52,9 +56,37 @@ public partial class CreateTopicViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
-    public CreateTopicViewModel(IPopupService popupService)
+    public CreateTopicViewModel(IPopupService popupService, ILogger<CreateTopicViewModel> logger)
     {
-        _popupService = popupService;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in CreateTopicViewModel constructor: ILogger<CreateTopicViewModel>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (popupService != null)
+            _popupService = popupService;
+        else
+        {
+            #region debug_popupservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in CreateTopicViewModel constructor: IPopupService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in CreateTopicViewModel constructor: IPopupService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(popupService));
+        }
 
         Glyphs = new ObservableCollection<GlyphCollectionItem>();
         _isSearchingGlyphLibrary = false;

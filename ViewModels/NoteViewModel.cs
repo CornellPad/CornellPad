@@ -16,6 +16,8 @@
 
 using CommunityToolkit.Maui.Core;
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad.ViewModels;
 
@@ -26,7 +28,7 @@ public partial class NoteViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     private readonly IDataService _dataService;
     private readonly IPopupService _popupService;
-
+    private readonly ILogger<NoteViewModel> _logger;
     private NoteModel _noteModel;
 
     public string WhatILearnedToday
@@ -65,10 +67,54 @@ public partial class NoteViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
-    public NoteViewModel(IDataService dataService, IPopupService popupService)
+    public NoteViewModel(IDataService dataService, IPopupService popupService, ILogger<NoteViewModel> logger)
     {
-        _dataService = dataService;
-        _popupService = popupService;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in NoteViewModel constructor: ILogger<NoteViewModel>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (dataService != null)
+            _dataService = dataService;
+        else
+        {
+            #region debug_dataservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in NoteViewModel constructor: IDataService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in NoteViewModel constructor: IDataService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(dataService));
+        }
+
+        if (popupService != null)
+            _popupService = popupService;
+        else
+        {
+            #region debug_popupservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in NoteViewModel constructor: IPopupService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in NoteViewModel constructor: IPopupService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(popupService));
+        }
     }
 
     [RelayCommand]

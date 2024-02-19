@@ -15,6 +15,8 @@
  *******************************************************************/
 
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad.ViewModels;
 
@@ -24,6 +26,8 @@ public partial class CreateLibraryViewModel : BaseViewModel
     // Members & Member Mutators
     /////////////////////////////////////////////////////////////////////////////////
     private IDataService _dataService;
+    private readonly ILogger<CreateLibraryViewModel> _logger;
+
     private LibraryViewModel _libraryViewModel;
     private string _name;
     private string _description;
@@ -87,9 +91,38 @@ public partial class CreateLibraryViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
-    public CreateLibraryViewModel(IDataService dataService, LibraryViewModel libraryViewModel)
+    public CreateLibraryViewModel(IDataService dataService, LibraryViewModel libraryViewModel, ILogger<CreateLibraryViewModel> logger)
     {
-        _dataService = dataService;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in CreateLibraryViewModel constructor: ILogger<CreateLibraryViewModel>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (dataService != null)
+            _dataService = dataService;
+        else
+        {
+            #region debug_dataservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in CreateLibraryViewModel constructor: IDataService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in CreateLibraryViewModel constructor: IDataService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(dataService));
+        }
+
         _libraryViewModel = libraryViewModel;
 
         IsButtonEnabled = false;

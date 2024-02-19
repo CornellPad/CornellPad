@@ -17,6 +17,8 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Storage;
 using CornellPad.Services.Interfaces;
+using MetroLog;
+using Microsoft.Extensions.Logging;
 
 namespace CornellPad.ViewModels;
 
@@ -27,6 +29,7 @@ public partial class SettingsViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     private IDataService _dataService;
     private IPopupService _popupService;
+    private readonly ILogger<SettingsViewModel> _logger;
 
     [ObservableProperty]
     bool isAdvancedDBSettingsExpanded;
@@ -61,11 +64,55 @@ public partial class SettingsViewModel : BaseViewModel
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
-    
-    public SettingsViewModel(IDataService dataService, IPopupService popupService)
+
+    public SettingsViewModel(IDataService dataService, IPopupService popupService, ILogger<SettingsViewModel> logger)
     {
-        _dataService = dataService;
-        _popupService = popupService;
+        if (logger != null)
+            _logger = logger;
+        else
+        {
+            #region debug_logger
+#if DEBUG
+            Debug.WriteLine("Null exception in SettingsViewModel constructor: ILogger<SettingsViewModel>");
+#endif
+            #endregion
+
+            throw new ArgumentNullException(nameof(logger));
+        }
+
+        if (dataService != null)
+            _dataService = dataService;
+        else
+        {
+            #region debug_dataservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in SettingsViewModel constructor: IDataService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in SettingsViewModel constructor: IDataService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(dataService));
+        }
+
+        if (popupService != null)
+            _popupService = popupService;
+        else
+        {
+            #region debug_popupservice
+
+#if DEBUG
+            Debug.WriteLine("Null exception in SettingsViewModel constructor: IPopupService");
+#elif !DEBUG
+            _logger.LogCritical("Null exception in SettingsViewModel constructor: IPopupService");
+#endif
+
+            #endregion
+
+            throw new ArgumentNullException(nameof(popupService));
+        }
 
         // These shouldn't be -1 if set correctly from the DBMS.
         PageSizeIndex = -1;
@@ -284,6 +331,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region BackupDB_Exception
 #if DEBUG
                 Debug.WriteLine(ex.Message);
+#elif !DEBUG
+                _logger.LogError("Exception calling _dataService.BackupDB in BackupDatabase method: {message}\n    Stack Trace: {trace}", ex.Message, ex.StackTrace);
 #endif
                 #endregion
 
@@ -296,11 +345,11 @@ public partial class SettingsViewModel : BaseViewModel
             #region FolderPickerResult_Exception
 #if DEBUG
             Debug.WriteLine(result.Exception.Message);
+#elif !DEBUG
+            _logger.LogError("Exception calling FolderPicker.PickAsync in BackupDatabase method: {message}\n    Stack Trace: {trace}", result.Exception.Message, result.Exception.StackTrace);
 #endif
             #endregion
 
-            Console.WriteLine(result.Exception.Message);
-            //Logger.Error(result.Exception.Message, result.Exception.StackTrace); // We NEED loggin in the app...this is stupid!
             await _popupService.ShowPopupAsync<ErrorWarningViewModel>(onPresenting: vm =>
             {
                 vm.Title = "Error: Invalid Choice";
@@ -342,6 +391,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region UnauthorizedAccessException_Debug
 #if DEBUG
                 Debug.WriteLine(uae.Message);
+#elif !DEBUG
+                _logger.LogWarning("Unauthorized Access exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", uae.Message, uae.StackTrace);
 #endif
                 #endregion
             }
@@ -350,6 +401,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region PathTooLongException_Debug
 #if DEBUG
                 Debug.WriteLine(ptle.Message);
+#elif !DEBUG
+                _logger.LogWarning("Path Too Long exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", ptle.Message, ptle.StackTrace);
 #endif
                 #endregion
             }
@@ -358,6 +411,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region DirectoryNotFoundException_Debug
 #if DEBUG
                 Debug.WriteLine(dnfe.Message);
+#elif !DEBUG
+                _logger.LogWarning("Directory Not Found exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", dnfe.Message, dnfe.StackTrace);
 #endif
                 #endregion
             }
@@ -366,6 +421,8 @@ public partial class SettingsViewModel : BaseViewModel
                 #region FileNotFoundException_Debug
 #if DEBUG
                 Debug.WriteLine(fnfe.Message);
+#elif !DEBUG
+                _logger.LogWarning("File Not Found exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", fnfe.Message, fnfe.StackTrace);
 #endif
                 #endregion
             }
@@ -374,12 +431,14 @@ public partial class SettingsViewModel : BaseViewModel
                 #region IOException_Debug
 #if DEBUG
                 Debug.WriteLine(ioe.Message);
+#elif !DEBUG
+                _logger.LogWarning("IO exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", ioe.Message, ioe.StackTrace);
 #endif
                 #endregion
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: We need to inform the user that something unexpected has happened, and they should create a bug report with steps on how to reproduce this error.
+                _logger.LogWarning("Exception calling File.Copy in RestoreDatabase method: {message}\n    Stack Trace: {trace}", ex.Message, ex.StackTrace);
             }
 
             _dataService.OpenConnection();
