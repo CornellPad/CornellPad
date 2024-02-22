@@ -1776,8 +1776,8 @@
     </Style>
 
     <Style ApplyToDerivedTypes="True" Class="FlyoutItemImageStyle" TargetType="Image">
-        <Setter Property="HeightRequest" Value="{OnPlatform Android=24, iOS=24, WinUI=28}"/>
-        <Setter Property="WidthRequest" Value="{OnPlatform Android=24, iOS=24, WinUI=28}"/>
+        <Setter Property="HeightRequest" Value="{OnPlatform Android=24, iOS=24, WinUI=28, MacCatalyst=28}"/>
+        <Setter Property="WidthRequest" Value="{OnPlatform Android=24, iOS=24, WinUI=28, MacCatalyst=28}"/>
     </Style>
 
 
