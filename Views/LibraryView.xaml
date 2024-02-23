@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <!--
     Copyright 2024 Digital Brain Lice
@@ -31,7 +31,8 @@
              NavigationPage.HasBackButton="False">
     
     <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+        <BackButtonBehavior IsEnabled="{OnPlatform Android='False',iOS='True', MacCatalyst='True', WinUI='False'}"
+                            IsVisible="{OnPlatform Android='False',iOS='True', MacCatalyst='True', WinUI='False'}"/>
     </Shell.BackButtonBehavior>
     
     <!-- WINDOWS SWIPEVIEW CRASH
