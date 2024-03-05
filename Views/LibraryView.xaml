@@ -116,7 +116,14 @@
         <CollectionView
             ItemsSource="{Binding TopicEntries}"
             ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}"
-            SelectionMode="None">
+            SelectionMode="None"
+            Margin="15">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout
+                    Orientation="Vertical"
+                    ItemSpacing="15" />
+            </CollectionView.ItemsLayout>
 
             <CollectionView.EmptyView>
                 <card:CollectionEmptyCard/>

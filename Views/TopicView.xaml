@@ -137,7 +137,14 @@
             Style="{DynamicResource TopicSummaryCollectionBoard}">
             <CollectionView
                 ItemsSource="{Binding NotePages}"
-                ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}">
+                ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}"
+                Margin="15">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Vertical"
+                        ItemSpacing="15" />
+                </CollectionView.ItemsLayout>
 
                 <CollectionView.EmptyView>
                     <card:CollectionEmptyCard/>

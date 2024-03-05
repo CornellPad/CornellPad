@@ -77,7 +77,14 @@
                     Grid.Row="0"
                     x:Name="LibrariesCollectionView"
                     ItemsSource="{Binding Libraries}"
-                    ItemTemplate="{StaticResource LibraryCard}">
+                    ItemTemplate="{StaticResource LibraryCard}"
+                    Margin="15">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout
+                            Orientation="Vertical"
+                            ItemSpacing="15" />
+                    </CollectionView.ItemsLayout>
 
                     <CollectionView.EmptyView>
                         <card:CollectionEmptyCard/>
