@@ -70,7 +70,7 @@
                 x:Key="WithoutDesktop"
                 x:DataType="model:TopicModel">
                 <SwipeView
-                    IsVisible="{OnPlatform WinUI=False, MacCatalyst=True, Android=True, iOS=True}">
+                    IsVisible="{OnPlatform WinUI=False, MacCatalyst=False, Android=True, iOS=True}">
                     <SwipeView.RightItems>
                         <SwipeItems>
                             <SwipeItemView
