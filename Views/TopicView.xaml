@@ -138,12 +138,12 @@
             <CollectionView
                 ItemsSource="{Binding NotePages}"
                 ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}"
-                Margin="15">
+                Margin="{OnPlatform MacCatalyst='15', Default='15, 8, 15, 0'}">
 
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout
                         Orientation="Vertical"
-                        ItemSpacing="15" />
+                        ItemSpacing="{OnPlatform MacCatalyst='15', Default='5'}" />
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.EmptyView>

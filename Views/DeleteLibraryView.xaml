@@ -76,12 +76,12 @@
                     Grid.Row="0"
                     ItemsSource="{Binding Libraries}"
                     ItemTemplate="{StaticResource LibraryCard}"
-                    Margin="15">
+                    Margin="{OnPlatform MacCatalyst='15', Default='10'}">
 
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout
                             Orientation="Vertical"
-                            ItemSpacing="15" />
+                            ItemSpacing="{OnPlatform MacCatalyst='15', Default='5'}" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.EmptyView>

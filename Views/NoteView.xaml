@@ -56,7 +56,7 @@
                 Grid.Row="1"
                 ItemsSource="{Binding NoteEntries}"
                 ItemTemplate="{StaticResource NoteEntryCard}"
-                Margin="15">
+                Margin="{OnPlatform MacCatalyst='15', Default='10'}">
 
                 <CollectionView.EmptyView>
                     <card:CollectionEmptyCard/>

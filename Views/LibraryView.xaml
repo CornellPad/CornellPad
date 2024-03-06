@@ -117,12 +117,12 @@
             ItemsSource="{Binding TopicEntries}"
             ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}"
             SelectionMode="None"
-            Margin="15">
+            Margin="{OnPlatform MacCatalyst='15', Default='10'}">
 
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout
                     Orientation="Vertical"
-                    ItemSpacing="15" />
+                    ItemSpacing="{OnPlatform MacCatalyst='15', Default='5'}" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.EmptyView>
