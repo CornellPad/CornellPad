@@ -88,7 +88,7 @@
 
     <LinearGradientBrush x:Key="GradientBG" EndPoint="0,1">
         <GradientStop Color="{AppThemeBinding Light={StaticResource Neutral_Light}, Dark={StaticResource Neutral_Dark},Default={StaticResource Black}}"
-                      Offset="{AppThemeBinding Light='0.0', Dark='-0.25', Default='0.0'}"/>
+                      Offset="{AppThemeBinding Light='0.0', Dark='0.0', Default='0.0'}"/>
         <GradientStop Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black},Default={StaticResource Black}}"
                       Offset="1.0"/>
     </LinearGradientBrush>
