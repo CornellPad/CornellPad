@@ -126,9 +126,9 @@ public interface IDataService
     /// </summary>
     /// <param name="libraryId">The Id value of the
     /// Library to read the TopicModels from.</param>
-    /// <returns>A strongly typed <typeparamref name="List"/>
-    /// of <typeparamref name="TopicModel"/> objects if successful;
-    /// an empty <typeparamref name="List"/> otherwise.</returns>
+    /// <returns>A strongly typed List
+    /// of TopicModel objects if successful;
+    /// an empty List otherwise.</returns>
     List<TopicModel> ReadTopics(int libraryId);
 
     /// <summary>
