@@ -210,7 +210,8 @@
     <Style x:Key="FlyoutHeaderBGBorder" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource Neutral_Dark}"/>
         <Setter Property="StrokeThickness" Value="0"/>
-        <Setter Property="HeightRequest" Value="162"/>
+        <Setter Property="HeightRequest" Value="{OnPlatform MacCatalyst='182', Default='162'}"/>
+        <Setter Property="Margin" Value="{OnPlatform MacCatalyst='0,0,0,20', Default='0'}"/>
     </Style>
 
     <Style x:Key="FlyoutHeaderLogoBorder" TargetType="Border">
@@ -219,6 +220,7 @@
         <Setter Property="StrokeThickness" Value="0"/>
         <Setter Property="HeightRequest" Value="78"/>
         <Setter Property="WidthRequest" Value="78"/>
+        <Setter Property="Margin" Value="{OnPlatform MacCatalyst='0, 54, 0, 0', Default='0'}"/>
     </Style>
 
     <!-- ### Glyph Border Definitions ### -->
