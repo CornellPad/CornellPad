@@ -76,7 +76,7 @@
 
     <Shell.FlyoutFooter>
         <Grid
-            ColumnDefinitions="Auto, 40, 40, 40"
+            ColumnDefinitions="{OnPlatform MacCatalyst='Auto, 50, 50, 50', Default='Auto, 40, 40, 40'}"
             RowDefinitions="60"
             HeightRequest="60">
 
