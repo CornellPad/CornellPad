@@ -32,38 +32,6 @@
             Style="{DynamicResource AppHeaderLabel}"/>
     </Shell.TitleView>
 
-    <!--
-        On MacCatalyst, the label and image's location are swapped
-        end-over-end by default. This fixes that issue.
-        Also, we don't seem to get all of our Typographies.xaml data,
-        so some of the styling is hard-coded...this feels bad.
-    -->
-    <Shell.ItemTemplate>
-        <OnPlatform x:TypeArguments="DataTemplate">
-            <On Platform="MacCatalyst">
-                <DataTemplate>
-                    <Grid
-                        ColumnDefinitions="30, *"
-                        RowDefinitions="30"
-                        Margin="10, 0, 0, 8">
-                        <Image
-                            Source="{Binding FlyoutIcon}"
-                            Style="{DynamicResource FlyoutItemImageStyle}"
-                            Margin="0, 0, 8, 0"/>
-                        <Label
-                            Grid.Column="1"
-                            Text="{Binding Title}"
-                            Style="{DynamicResource FlyoutItemLabelStyle}"
-                            VerticalOptions="Center"
-
-                            FontFamily="CrimsonPro_600"
-                            FontSize="28"/>
-                    </Grid>
-                </DataTemplate>
-            </On>
-        </OnPlatform>
-    </Shell.ItemTemplate>
-
     <Shell.FlyoutHeader>
         <Border
             Style="{DynamicResource FlyoutHeaderBGBorder}">
