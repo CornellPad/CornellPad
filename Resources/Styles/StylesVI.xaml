@@ -1768,18 +1768,27 @@
         <Setter Property="Shell.FlyoutBackdrop" Value="{DynamicResource VIFlyoutBackdropBrush}"/>
     </Style>
 
-    <Style ApplyToDerivedTypes="True" Class="FlyoutItemLabelStyle" TargetType="Label">
+    <Style ApplyToDerivedTypes="True" x:Key="FlyoutItemLabelStyle" TargetType="Label">
         <Setter Property="FontFamily" Value="{StaticResource AppHeader_VI_FontFamily}"/>
         <Setter Property="FontSize" Value="{StaticResource AppHeader_VI_FontSize}"/>
         <Setter Property="FontAttributes" Value="{StaticResource AppHeader_VI_FontAttributes}"/>
         <Setter Property="CharacterSpacing" Value="{StaticResource AppHeader_VI_CharacterSpacing}"/>
-        
+
         <Setter Property="TextColor" Value="{StaticResource White}"/>
+
+        <Setter Property="HorizontalOptions" Value="{OnPlatform Default=Fill, WinUI=Start}"/>
+        <Setter Property="HorizontalTextAlignment" Value="Start"/>
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
     </Style>
 
-    <Style ApplyToDerivedTypes="True" Class="FlyoutItemImageStyle" TargetType="Image">
+    <Style ApplyToDerivedTypes="True" x:Key="FlyoutItemImageStyle" TargetType="Image">
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="HorizontalOptions" Value="{OnPlatform Default=Center, WinUI=Start}"/>
+        
         <Setter Property="HeightRequest" Value="{OnPlatform Android=24, iOS=24, WinUI=28, MacCatalyst=28}"/>
         <Setter Property="WidthRequest" Value="{OnPlatform Android=24, iOS=24, WinUI=28, MacCatalyst=28}"/>
+
+        <Setter Property="Margin" Value="{OnPlatform 5, WinUI='12, 0, 12, 0'}"/>
     </Style>
 
 
