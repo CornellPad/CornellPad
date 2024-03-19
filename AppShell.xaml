@@ -95,6 +95,41 @@
         </Grid>
     </Shell.FlyoutFooter>
 
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid x:Name="FlyoutItemLayout"
+                HeightRequest="{OnPlatform 44, Android=50}"
+                ColumnSpacing="{OnPlatform WinUI=0}"
+                RowSpacing="{OnPlatform WinUI=0}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                    Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{OnPlatform Android=54, iOS=50, WinUI=Auto, MacCatalyst=Auto}" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image x:Name="FlyoutItemImage"
+                   Source="{Binding FlyoutIcon}"
+                   Style="{DynamicResource FlyoutItemImageStyle}">
+                </Image>
+                <Label x:Name="FlyoutItemLabel"
+                   Grid.Column="1"
+                   Text="{Binding Title}"
+                   Style="{DynamicResource FlyoutItemLabelStyle}">
+                </Label>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
     <ShellContent
         Title="Library"
         ContentTemplate="{DataTemplate local:LibraryView}"
