@@ -50,7 +50,7 @@
     <!--#region AppHeader_VI font definitions -->
     <x:String x:Key="AppHeader_VI_FontFamily">SourceSansPro_Bold</x:String>
     <x:Double x:Key="AppHeader_VI_FontSize">28</x:Double>
-    <x:Double x:Key="AppHeader_VI_CharacterSpacing">1</x:Double>
+    <x:Double x:Key="AppHeader_VI_CharacterSpacing">0.5</x:Double>
     <FontAttributes x:Key="AppHeader_VI_FontAttributes">Bold</FontAttributes>
     <!--#endregion-->
 
@@ -106,7 +106,7 @@
     <!--#region CardSubtitleItalic_VI font definitions -->
     <x:String x:Key="CardSubtitleItalic_VI_FontFamily">CrimsonPro_Italic</x:String>
     <x:Double x:Key="CardSubtitleItalic_VI_FontSize">20</x:Double>
-    <x:Double x:Key="CardSubtitleItalic_VI_CharacterSpacing">1</x:Double>
+    <x:Double x:Key="CardSubtitleItalic_VI_CharacterSpacing">0.5</x:Double>
     <FontAttributes x:Key="CardSubtitleItalic_VI_FontAttributes">Bold</FontAttributes>
     <!--#endregion-->
 
@@ -148,7 +148,7 @@
     <!--#region CardTitle_VI font definitions -->
     <x:String x:Key="CardTitle_VI_FontFamily">SourceSansPro_Bold</x:String>
     <x:Double x:Key="CardTitle_VI_FontSize">28</x:Double>
-    <x:Double x:Key="CardTitle_VI_CharacterSpacing">1</x:Double>
+    <x:Double x:Key="CardTitle_VI_CharacterSpacing">0.5</x:Double>
     <FontAttributes x:Key="CardTitle_VI_FontAttributes">Bold</FontAttributes>
     <!--#endregion-->
 
