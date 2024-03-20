@@ -53,6 +53,9 @@ public partial class CreateTopicViewModel : BaseViewModel
     [ObservableProperty]
     string _searchGlyphLibrary;
 
+    [ObservableProperty]
+    ObservableCollection<string> _glyphLibraries;
+
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
@@ -90,6 +93,11 @@ public partial class CreateTopicViewModel : BaseViewModel
 
         Glyphs = new ObservableCollection<GlyphCollectionItem>();
         _isSearchingGlyphLibrary = false;
+
+        GlyphLibraries = new ObservableCollection<string>();
+        GlyphLibraries.Add("FA Brands");
+        GlyphLibraries.Add("FA Regular");
+        GlyphLibraries.Add("FA Solid");
     }
 
     [RelayCommand]

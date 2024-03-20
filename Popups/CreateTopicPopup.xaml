@@ -78,11 +78,23 @@
                                 Text="Select Glyph Set"
                                 Style="{DynamicResource ControlTitlesText}"/>
 
+                            <!--#region Picker-CollectinView-->
+                            
+                            <!--
+                                We use the Picker for most platforms, but on MacCatalyst, we are
+                                forced to use a CollectionView due to a bug in the Picker not
+                                responding to user activity when placed in a Popup.
+                            -->
                             <Border
-                                Style="{DynamicResource PickerBorder}">
+                                Style="{DynamicResource PickerBorder}"
+                                IsVisible="{OnPlatform MacCatalyst='False', Default='True'}">
+                                
                                 <Picker
                                     SelectedItem="{Binding SelectedGlyphLibrary}"
-                                    WidthRequest="{OnPlatform Android=140, iOS=140, Default=140}">
+                                    ItemsSource="{Binding GlyphLibraries}"
+                                    
+                                    WidthRequest="{OnPlatform Android=140, iOS=140, Default=140}"
+                                    IsVisible="{OnPlatform MacCatalyst='False', Default='True'}">
 
                                     <Picker.Behaviors>
                                         <toolkit:EventToCommandBehavior
@@ -90,16 +102,28 @@
                                             Command="{Binding GlyphLibrarySelectedCommand}"/>
                                     </Picker.Behaviors>
 
-                                    <Picker.ItemsSource>
-                                        <x:Array Type="{x:Type x:String}">
-                                            <x:String>FA Brands</x:String>
-                                            <x:String>FA Regular</x:String>
-                                            <x:String>FA Solid</x:String>
-                                        </x:Array>
-                                    </Picker.ItemsSource>
-
                                 </Picker>
+                                
                             </Border>
+
+                            <Border
+                                Style="{DynamicResource PickerBorder}"
+                                IsVisible="{OnPlatform MacCatalyst='True', Default='False'}">
+
+                                <CollectionView
+                                    SelectedItem="{Binding SelectedGlyphLibrary}"
+                                    ItemsSource="{Binding GlyphLibraries}"
+                                    
+                                    HeightRequest="33"
+                                    WidthRequest="{OnPlatform Android=140, iOS=140, Default=140}"
+                                    IsVisible="{OnPlatform MacCatalyst='True', Default='False'}"
+                                    
+                                    SelectionMode="Single"
+                                    SelectionChangedCommand="{Binding GlyphLibrarySelectedCommand}"/>
+
+                            </Border>
+                            
+                            <!--#endregion-->
 
                         </HorizontalStackLayout>
 
