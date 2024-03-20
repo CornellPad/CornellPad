@@ -1,5 +1,5 @@
 ﻿/*******************************************************************
- Copyright 2024 Digital Brain Lice
+ Copyright 2024 CornellPad
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CornellPad;
 
-// TODO: Change the License headers in the source files; Digital Brain Lice isn't the owner of the code base, CornellPad is.
+// TODO: Change the License headers in the source files; CornellPad isn't the owner of the code base, CornellPad is.
 // TODO: A 'print-to-PDF' feature would be a huge boon to users; QuestPDF is a great choice here.
 
 /// <summary>
