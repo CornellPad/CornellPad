@@ -20,7 +20,6 @@ using Microsoft.Extensions.Logging;
 
 namespace CornellPad;
 
-// TODO: Change the License headers in the source files; CornellPad isn't the owner of the code base, CornellPad is.
 // TODO: A 'print-to-PDF' feature would be a huge boon to users; QuestPDF is a great choice here.
 
 /// <summary>
