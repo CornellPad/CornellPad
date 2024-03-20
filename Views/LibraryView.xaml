@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <!--
     Copyright 2024 Digital Brain Lice
@@ -31,7 +31,8 @@
              NavigationPage.HasBackButton="False">
     
     <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+        <BackButtonBehavior IsEnabled="{OnPlatform Android='False',iOS='True', MacCatalyst='True', WinUI='False'}"
+                            IsVisible="{OnPlatform Android='False',iOS='True', MacCatalyst='True', WinUI='False'}"/>
     </Shell.BackButtonBehavior>
     
     <!-- WINDOWS SWIPEVIEW CRASH
@@ -69,7 +70,7 @@
                 x:Key="WithoutDesktop"
                 x:DataType="model:TopicModel">
                 <SwipeView
-                    IsVisible="{OnPlatform WinUI=False, MacCatalyst=True, Android=True, iOS=True}">
+                    IsVisible="{OnPlatform WinUI=False, MacCatalyst=False, Android=True, iOS=True}">
                     <SwipeView.RightItems>
                         <SwipeItems>
                             <SwipeItemView
@@ -115,7 +116,14 @@
         <CollectionView
             ItemsSource="{Binding TopicEntries}"
             ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}"
-            SelectionMode="None">
+            SelectionMode="None"
+            Margin="{OnPlatform MacCatalyst='15', Default='10'}">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout
+                    Orientation="Vertical"
+                    ItemSpacing="{OnPlatform MacCatalyst='15', Default='5'}" />
+            </CollectionView.ItemsLayout>
 
             <CollectionView.EmptyView>
                 <card:CollectionEmptyCard/>

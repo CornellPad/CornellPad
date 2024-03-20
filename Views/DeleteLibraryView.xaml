@@ -75,7 +75,14 @@
                 <CollectionView
                     Grid.Row="0"
                     ItemsSource="{Binding Libraries}"
-                    ItemTemplate="{StaticResource LibraryCard}">
+                    ItemTemplate="{StaticResource LibraryCard}"
+                    Margin="{OnPlatform MacCatalyst='15', Default='10'}">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout
+                            Orientation="Vertical"
+                            ItemSpacing="{OnPlatform MacCatalyst='15', Default='5'}" />
+                    </CollectionView.ItemsLayout>
 
                     <CollectionView.EmptyView>
                         <card:CollectionEmptyCard/>

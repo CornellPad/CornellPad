@@ -53,6 +53,9 @@ public partial class CreateTopicViewModel : BaseViewModel
     [ObservableProperty]
     string _searchGlyphLibrary;
 
+    [ObservableProperty]
+    ObservableCollection<string> _glyphLibraries;
+
     /////////////////////////////////////////////////////////////////////////////////
     // Methods
     /////////////////////////////////////////////////////////////////////////////////
@@ -90,6 +93,11 @@ public partial class CreateTopicViewModel : BaseViewModel
 
         Glyphs = new ObservableCollection<GlyphCollectionItem>();
         _isSearchingGlyphLibrary = false;
+
+        GlyphLibraries = new ObservableCollection<string>();
+        GlyphLibraries.Add("FA Brands");
+        GlyphLibraries.Add("FA Regular");
+        GlyphLibraries.Add("FA Solid");
     }
 
     [RelayCommand]
@@ -271,7 +279,7 @@ public partial class CreateTopicViewModel : BaseViewModel
     /// <param name="selectedFontFamily">The string alias for the font
     /// family that contains the desired glyphs. <b>NOTE:</b> this must
     /// be one of the alias' used when registering the app's fonts. See the
-    /// <paramref name="ConfigureFonts"/> member call in MauiProgram.cs</param>
+    /// ConfigureFonts member call in MauiProgram.cs</param>
     /// <param name="query">The value to search each glyph's Key with;
     /// this is optional and can be omitted.</param>
     void AddGlyphsToCollection(string selectedFontFamily, string query = null)

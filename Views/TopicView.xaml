@@ -55,7 +55,7 @@
                 x:Key="WithoutDesktop"
                 x:DataType="model:TopicModel">
                 <SwipeView
-                    IsVisible="{OnPlatform WinUI=False, MacCatalyst=True, Android=True, iOS=True}">
+                    IsVisible="{OnPlatform WinUI=False, MacCatalyst=False, Android=True, iOS=True}">
                     <SwipeView.RightItems>
                         <SwipeItems>
                             <SwipeItemView
@@ -137,7 +137,14 @@
             Style="{DynamicResource TopicSummaryCollectionBoard}">
             <CollectionView
                 ItemsSource="{Binding NotePages}"
-                ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}">
+                ItemTemplate="{OnPlatform WinUI={StaticResource WithDesktop}, MacCatalyst={StaticResource WithDesktop}, Default={StaticResource WithoutDesktop}}"
+                Margin="{OnPlatform MacCatalyst='15', Default='15, 8, 15, 0'}">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Vertical"
+                        ItemSpacing="{OnPlatform MacCatalyst='15', Default='5'}" />
+                </CollectionView.ItemsLayout>
 
                 <CollectionView.EmptyView>
                     <card:CollectionEmptyCard/>
